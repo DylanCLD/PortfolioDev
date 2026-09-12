@@ -24,7 +24,7 @@ interface Project {
   images: string[]
 }
 
-const BLOB = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com"
+const BLOB = "/projects"
 
 const projectsData: Project[] = [
   {
@@ -171,7 +171,7 @@ export default function Projects() {
             <div
               role="group"
               aria-label={t.projects.filterLabel}
-              className="flex flex-wrap gap-1.5 rounded-xl border border-border bg-surface-1/70 p-1.5 backdrop-blur"
+              className="project-filters flex flex-wrap gap-1.5 rounded-xl border border-border bg-surface-1/70 p-1.5 backdrop-blur"
             >
               {FILTERS.map(({ value, key }) => {
                 const selected = filter === value
@@ -240,14 +240,14 @@ export default function Projects() {
                         </span>
                         <span
                           aria-hidden="true"
-                          className="absolute inset-0 bg-gradient-to-t from-surface-1 via-surface-1/20 to-transparent"
+                          className="project-image-shade absolute inset-0 bg-gradient-to-t from-surface-1 via-surface-1/20 to-transparent"
                         />
                         <span className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-md border border-border bg-background/80 px-2.5 py-1.5 font-mono text-[0.7rem] text-foreground backdrop-blur">
                           <Maximize className="h-3 w-3" />
                           {project.images.length} {t.projects.screenshots}
                         </span>
                         {project.featured ? (
-                          <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-md border border-accent/40 bg-accent/15 px-2.5 py-1 font-mono text-[0.7rem] text-accent-bright backdrop-blur">
+                          <span className="project-featured absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-md border border-accent/40 bg-accent/15 px-2.5 py-1 font-mono text-[0.7rem] text-accent-bright backdrop-blur">
                             <Sparkles className="h-3 w-3" />
                             {t.projects.featured}
                           </span>

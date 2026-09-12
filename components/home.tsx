@@ -3,9 +3,9 @@ import Backdrop from "@/components/backdrop"
 import BootOverlay from "@/components/boot-overlay"
 import Contact from "@/components/contact"
 import Footer from "@/components/footer"
-import Hero from "@/components/hero"
 import Navigation from "@/components/navigation"
 import Projects from "@/components/projects"
+import PremiumHero from "@/components/premium-hero"
 
 export default function Home() {
   return (
@@ -15,7 +15,7 @@ export default function Home() {
       <Navigation />
       <BootOverlay />
       <main id="main" className="relative">
-        <Hero />
+        <PremiumHero />
         <About />
         <Projects />
         <Contact />

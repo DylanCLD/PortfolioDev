@@ -6,7 +6,7 @@ import { useLanguage } from "@/lib/language-context"
 import { translations } from "@/lib/translations"
 import { cn } from "@/lib/utils"
 
-function usePrefersReducedMotion() {
+export function usePrefersReducedMotion() {
   const [reduced, setReduced] = useState(false)
 
   useEffect(() => {
@@ -22,7 +22,7 @@ function usePrefersReducedMotion() {
 
 /** Types `text` out one character at a time, or returns it whole when the
  *  visitor asked for reduced motion. */
-function useTypewriter(text: string, enabled: boolean, speed = 45) {
+export function useTypewriter(text: string, enabled: boolean, speed = 45) {
   const [typed, setTyped] = useState("")
 
   useEffect(() => {
@@ -86,7 +86,7 @@ export default function Hero() {
     <section className="relative flex min-h-[100svh] items-center px-4 pb-20 pt-28 sm:px-6 lg:px-8">
       <div className="mx-auto grid w-full max-w-7xl items-center gap-14 lg:grid-cols-[minmax(0,1fr)_26rem] lg:gap-16">
         <div className="fade-up">
-          <p className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-border bg-surface-2/80 py-1.5 pl-2.5 pr-4 text-xs text-muted-foreground backdrop-blur">
+          <p className="hero-availability mb-6 inline-flex items-center gap-2.5 rounded-full border border-border bg-surface-2/80 py-1.5 pl-2.5 pr-4 text-xs text-muted-foreground backdrop-blur">
             <span aria-hidden="true" className="pulse-dot h-2 w-2 rounded-full bg-success" />
             {t.hero.available}
           </p>
@@ -95,7 +95,7 @@ export default function Hero() {
             <span className={cn(!reducedMotion && "cursor-blink")}>{command}</span>
           </p>
 
-          <h1 className="text-gradient text-balance text-[clamp(2.75rem,8vw,5.25rem)] font-semibold leading-[0.95] tracking-tight">
+          <h1 className="hero-title text-gradient text-balance text-[clamp(2.75rem,8vw,5.25rem)] font-semibold leading-[0.95] tracking-tight">
             {t.hero.title}
           </h1>
 
@@ -164,7 +164,7 @@ export default function Hero() {
 
         {/* Terminal card — the identity detail, decorative on small screens */}
         <div className="fade-up hidden lg:block" style={{ animationDelay: "160ms" }}>
-          <div className="edge-light surface-card overflow-hidden bg-surface-1/70 shadow-[var(--shadow-lg)] backdrop-blur">
+          <div className="hero-terminal edge-light surface-card overflow-hidden bg-surface-1/70 shadow-[var(--shadow-lg)] backdrop-blur">
             <div className="flex items-center gap-2 border-b border-border bg-surface-2/70 px-4 py-3">
               <span aria-hidden="true" className="h-2.5 w-2.5 rounded-full bg-destructive/80" />
               <span aria-hidden="true" className="h-2.5 w-2.5 rounded-full bg-warning/80" />

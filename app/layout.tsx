@@ -1,7 +1,9 @@
 import type React from "react"
+import { SITE_URL, SITE_TITLE } from "@/lib/site"
 import type { Metadata, Viewport } from "next"
-import { Inter, JetBrains_Mono } from "next/font/google"
+import { Inter, JetBrains_Mono, Manrope, IBM_Plex_Sans, IBM_Plex_Mono, Barlow_Condensed } from "next/font/google"
 import "./globals.css"
+import "./style-preview.css"
 import { LanguageProvider } from "@/lib/language-context"
 import { Toaster } from "@/components/ui/sonner"
 
@@ -17,12 +19,17 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
 })
 
-const SITE_URL = "https://dylanclochard.dev"
+const manrope = Manrope({ subsets: ["latin"], variable: "--font-premium-display", display: "swap" })
+const plex = IBM_Plex_Sans({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-premium-sans", display: "swap" })
+const plexMono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-premium-mono", display: "swap" })
+const condensed = Barlow_Condensed({ subsets: ["latin"], weight: ["500", "600"], variable: "--font-premium-condensed", display: "swap" })
+
+
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Dylan Clochard — Développeur Web Full-Stack & Game Developer",
+    default: SITE_TITLE,
     template: "%s — Dylan Clochard",
   },
   description:
@@ -49,13 +56,15 @@ export const metadata: Metadata = {
     alternateLocale: ["en_US"],
     url: SITE_URL,
     siteName: "Dylan Clochard",
-    title: "Dylan Clochard — Développeur Web Full-Stack & Game Developer",
+    images: [{ url: "/social-card.png", width: 1200, height: 630, alt: "Dylan Clochard — Portfolio web, mobile et jeux" }],
+    title: SITE_TITLE,
     description:
       "Développeur web full-stack en recherche d'alternance à Marseille. Je construis des jeux, des apps mobiles et des interfaces web soignées.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Dylan Clochard — Développeur Web Full-Stack & Game Developer",
+    images: ["/social-card.png"],
+    title: SITE_TITLE,
     description:
       "Développeur web full-stack en recherche d'alternance à Marseille. Je construis des jeux, des apps mobiles et des interfaces web soignées.",
   },
@@ -64,11 +73,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   icons: {
-    icon: [
-      { url: "/icon-light-32x32.png", media: "(prefers-color-scheme: light)" },
-      { url: "/icon-dark-32x32.png", media: "(prefers-color-scheme: dark)" },
-      { url: "/icon.svg", type: "image/svg+xml" },
-    ],
+    icon: [{ url: "/dc-avatar.svg", type: "image/svg+xml" }],
     apple: "/apple-icon.png",
   },
 }
@@ -118,7 +123,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="fr" className={`dark ${inter.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
+    <html lang="fr" data-visual-style="obsidian" className={`dark ${inter.variable} ${jetbrainsMono.variable} ${manrope.variable} ${plex.variable} ${plexMono.variable} ${condensed.variable}`} suppressHydrationWarning>
       <body className="font-sans antialiased bg-background text-foreground">
         <a
           href="#main"

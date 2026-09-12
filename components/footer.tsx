@@ -66,9 +66,15 @@ export default function Footer() {
           </div>
         </div>
 
+        <nav aria-label={language === "fr" ? "Informations légales" : "Legal information"} className="mt-10 flex flex-wrap gap-x-6 gap-y-3 text-xs text-muted-foreground">
+          <a href="/mentions-legales">{language === "fr" ? "Mentions légales" : "Legal notice (French)"}</a>
+          <a href="/confidentialite">{language === "fr" ? "Confidentialité" : "Privacy (French)"}</a>
+          <a href="/conditions-utilisation">{language === "fr" ? "Conditions d’utilisation" : "Terms of use (French)"}</a>
+        </nav>
+
         <div className="mt-12 flex flex-col-reverse items-center justify-between gap-5 border-t border-border pt-7 sm:flex-row">
           <p className="text-center text-xs text-muted-foreground sm:text-left">
-            © {year} Dylan Clochard. {t.footer.rights} · {t.footer.builtWith} · {t.footer.hostedOn}
+            © {year} Dylan Clochard. {t.footer.rights} · {t.footer.builtWith}
           </p>
 
           <a

@@ -27,10 +27,10 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<Language>("fr")
 
   useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY)
-    if (isLanguage(saved)) {
-      setLanguageState(saved)
-    }
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY)
+      if (isLanguage(saved)) setLanguageState(saved)
+    } catch { /* Browsing remains possible when storage is blocked. */ }
   }, [])
 
   // Keep the document language in sync so screen readers and browser

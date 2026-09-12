@@ -109,10 +109,7 @@ export default function Navigation() {
             className="group flex items-center gap-2.5 font-mono text-sm font-semibold tracking-tight"
             aria-label="Dylan Clochard — accueil"
           >
-            <span className="relative grid h-8 w-8 place-items-center rounded-md border border-border bg-surface-2 text-accent-bright transition-colors duration-200 group-hover:border-accent/60">
-              <span aria-hidden="true">dc</span>
-            </span>
-            <span className="hidden sm:inline">
+            <span className="inline-flex min-h-11 items-center">
               dc<span className="text-muted-foreground">.dev</span>
             </span>
           </Link>

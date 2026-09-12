@@ -20,7 +20,7 @@ export function SectionHeading({ index, title, lead, aside }: SectionHeadingProp
             <span aria-hidden="true" className="h-px w-10 bg-border-strong" />
             <span>{title}</span>
           </p>
-          <h2 className="text-balance text-3xl font-semibold tracking-tight md:text-[2.75rem] md:leading-[1.1]">
+          <h2 className="section-heading text-balance text-3xl font-semibold tracking-tight md:text-[2.75rem] md:leading-[1.1]">
             {lead ?? title}
           </h2>
         </div>

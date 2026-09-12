@@ -103,6 +103,7 @@ export default function Contact() {
                 </a>
 
                 <p className="font-mono text-xs text-muted-foreground">{t.contact.responseTime}</p>
+                <p className="text-xs leading-relaxed text-muted-foreground">{language === "fr" ? "Vos coordonnées servent uniquement à traiter votre demande. " : "Your details are used only to handle your enquiry. "}<a href="/confidentialite" className="underline underline-offset-4">{language === "fr" ? "Confidentialité et vos droits" : "Privacy and your rights (French)"}</a></p>
               </div>
             </article>
           </Reveal>
