@@ -36,7 +36,7 @@ export default function Contact() {
     {
       icon: MapPin,
       label: t.contact.location,
-      value: "Aix-En-Provence, France",
+      value: "Marseille, France",
       href: "#",
     },
   ]
