@@ -55,18 +55,20 @@ export const translations = {
         "RPG multiverses inspiré de OnePiece avec une progression 0-500, des quêtes, des boss et des mécaniques variées d'exploration.",
       poorToRich:
         "Jeu de tycoon économique avec boucles de revenus actifs/passifs, améliorations commerciales, systèmes d'investissement et quêtes quotidiennes.",
-      mushokuTensei:
-        "Serveur RP isekai immersif avec système de magie progressif, classes, capacités basées sur le niveau et quêtes pilotées par la lore.",
       inventoryManager:
-        "Application Android multi-utilisateurs pour la gestion d'inventaire avec synchronisation Firebase en temps réel et accès basé sur les rôles.",
+        "Outil web de suivi de stock multi-emplacements avec entrées/sorties horodatées, historique des mouvements et suppression protégée par mot de passe.",
+      fertilityTracker:
+        "Application Flutter de suivi de cycle menstruel (méthode symptothermique) : détection de phase par décalage thermique et pic de glaire, courbes de température, verrouillage biométrique et rappels programmables. 100% local, aucune donnée envoyée en ligne.",
+      docsTOG:
+        "Espace de travail façon Notion pour organiser un projet en équipe : pages riches, gestionnaires de documents, planning vocal, médiathèque, recherche globale et rôles/accès contrôlés via Google.",
       pokeStrat:
         "Analyseur de stratégie Pokémon avec calculatrice de dégâts, constructeur d'équipe et moteur de simulation pour joueurs compétitifs.",
       weatherData:
         "Gestionnaire de données de station météorologique en C avec support de fichiers binaires/ASCII, tri et manipulation de structures de données avancées.",
       tensuraRP:
         "Projet roleplay inspiré de *Tensei Shitara Slime Datta Ken*. Les joueurs choisissent leur race (Humain, Monstre) et évoluent dans un monde fantastique avec système d'expérience, de compétences et de magie.",
-      algoSuite:
-        "Série d'exercices d'algorithmique couvrant la recherche dichotomique, tris (bulle, fusion), listes chaînées, piles, files, automates finis et combinaisons/permutations. Objectif : perfectionner la maîtrise de la logique et des structures de données fondamentales.",
+      sportActu:
+        "Application mobile de suivi sportif et nutritionnel gamifiée (thème Solo Leveling) : analyse de repas par photo/texte via l'IA Gemini, système de quêtes, XP, succès et pénalités, planning d'entraînement et bilan de progression.",
     },
     contact: {
       title: "Contactez-moi",
@@ -144,18 +146,20 @@ export const translations = {
         "Multi-universe OnePiece-inspired RPG with 0-500 progression, quests, boss fights, and varied exploration mechanics.",
       poorToRich:
         "Economic tycoon game with active/passive revenue loops, business upgrades, investment systems, and daily quests.",
-      mushokuTensei:
-        "Immersive isekai RP server with progressive magic system, classes, level-based abilities, and lore-driven quests.",
       inventoryManager:
-        "Multi-user Android app for business inventory management with real-time Firebase sync and role-based access.",
+        "Web-based stock tracker across multiple locations with timestamped in/out movements, history log, and password-protected deletions.",
+      fertilityTracker:
+        "Flutter menstrual cycle tracker (symptothermal method): phase detection from temperature shift and mucus peak, temperature charts, biometric lock, and scheduled reminders. Fully local, no data sent online.",
+      docsTOG:
+        "Notion-like workspace for organizing a team project: rich pages, document managers, voice session planning, media library, global search, and Google-controlled roles/access.",
       pokeStrat:
         "Pokémon strategy analyzer with damage calculator, team builder, and simulation engine for competitive players.",
       weatherData:
         "C-based weather station data manager supporting binary/ASCII files with sorting and advanced data structure manipulation.",
       tensuraRP:
         "Roleplay project inspired by *Tensei Shitara Slime Datta Ken*. Players choose their race (Human, Monster) and evolve in a fantasy world with experience, skills, and magic systems.",
-      algoSuite:
-        "Series of algorithm exercises covering binary search, sorting (bubble, merge), linked lists, stacks, queues, finite automata, and combinations/permutations. Goal: master fundamental logic and data structure concepts.",
+      sportActu:
+        "Gamified mobile fitness & nutrition tracker (Solo Leveling theme): AI meal analysis from photo/text via Gemini, quest/XP/achievement system with penalties, workout planner, and progress dashboard.",
     },
     contact: {
       title: "Contact me",
