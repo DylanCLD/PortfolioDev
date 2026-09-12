@@ -1,6 +1,6 @@
 "use client"
 
-import { Code2, Zap, Gamepad2 } from "@/components/icons"
+import { Code2, Zap, Gamepad2, Terminal } from "@/components/icons"
 import { useLanguage } from "@/lib/language-context"
 import { translations } from "@/lib/translations"
 
@@ -11,12 +11,12 @@ export default function About() {
   const skills = [
     {
       category: t.about.categories.languages,
-      items: ["Python", "Lua", "C", "Go", "PHP", "JavaScript", "TypeScript", "Dart"],
+      items: ["Python", "Lua", "Luau", "C", "C#", "Go", "PHP", "JavaScript", "TypeScript", "Dart"],
       icon: Code2,
     },
     {
       category: t.about.categories.web,
-      items: ["React", "Next.js", "HTML/CSS", "Flutter", "Firebase", "SQL"],
+      items: ["React", "Next.js", "React Native", "HTML/CSS", "Flutter", "Supabase", "SQL"],
       icon: Zap,
     },
     {
@@ -24,6 +24,17 @@ export default function About() {
       items: ["Game Development", "AI/ML", "Backend Systems", "Database Design", "API Development"],
       icon: Gamepad2,
     },
+    {
+      category: t.about.categories.tools,
+      items: ["Git", "SVN", "Linux/SSH", "Playwright", "Google Analytics", "OOP", "Web Accessibility"],
+      icon: Terminal,
+    },
+  ]
+
+  const education = [
+    { degree: t.about.iscodDegree, detail: t.about.iscodDetail },
+    { degree: t.about.esgiDegree, detail: t.about.esgiDetail },
+    { degree: t.about.bacDegree, detail: t.about.bacDetail },
   ]
 
   return (
@@ -31,7 +42,7 @@ export default function About() {
       <div className="max-w-6xl mx-auto">
         <h2 className="text-4xl font-bold mb-16 text-pretty fade-in">{t.about.title}</h2>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-16 animate-stagger">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16 animate-stagger">
           {skills.map((skill) => {
             const Icon = skill.icon
             return (
@@ -59,11 +70,12 @@ export default function About() {
         <div className="mb-16 p-6 bg-card border border-border rounded-lg">
           <h3 className="text-2xl font-bold mb-4">{t.about.education}</h3>
           <div className="space-y-4">
-            <div>
-              <h4 className="font-bold text-lg">{t.about.bachelor}</h4>
-              <p className="text-muted-foreground">{t.about.esgi}</p>
-              <p className="text-sm text-muted-foreground mt-2">{t.about.specialization}</p>
-            </div>
+            {education.map((item) => (
+              <div key={item.degree}>
+                <h4 className="font-bold text-lg">{item.degree}</h4>
+                <p className="text-muted-foreground">{item.detail}</p>
+              </div>
+            ))}
             <div>
               <h4 className="font-bold text-lg">{t.about.experience}</h4>
               <p className="text-muted-foreground">{t.about.internship}</p>
