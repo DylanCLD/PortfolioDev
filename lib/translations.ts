@@ -3,26 +3,52 @@ export const translations = {
     nav: {
       about: "À Propos",
       projects: "Projets",
+      stack: "Stack",
       contact: "Contact",
       github: "GitHub",
+      openMenu: "Ouvrir le menu",
+      closeMenu: "Fermer le menu",
+      switchLanguage: "Passer en anglais",
+      sections: "Sections",
     },
     hero: {
       command: "> etudiant_dev --init",
+      available: "Disponible pour une alternance",
       title: "Dylan Clochard",
       subtitle: "Développeur Full-Stack | Passionné par l'IA | Développeur de Jeux",
+      roles: ["Développeur Full-Stack", "Développeur de Jeux", "Intégrateur d'IA", "Backend Python & Go"],
       description:
         "Étudiant en Informatique à l'ESGI construisant des expériences web immersives, des systèmes intelligents et des mécaniques de jeu engageantes. Spécialisé en Python, Lua, Go et technologies web modernes.",
       exploreCTA: "Explorer Mon Travail",
       contactCTA: "Me Contacter",
+      scrollHint: "Défiler",
+      metrics: {
+        projects: "Projets livrés",
+        languages: "Langages maîtrisés",
+        internship: "Mois de stage IA",
+      },
+      terminal: {
+        title: "~/dylan — zsh",
+        command: "whoami --verbose",
+        role: "Développeur Full-Stack & Game Developer",
+        school: "ESGI · Bachelor Informatique",
+        location: "Aix-en-Provence, France",
+        focus: "Gameplay systems · Backend Python · Agents IA",
+        status: "En recherche d'alternance",
+      },
     },
     about: {
+      index: "01",
       title: "À Propos & Compétences",
+      lead: "Je construis des systèmes qui tournent vraiment, pas des démos.",
+      bio: "De l'économie d'un tycoon Roblox à un agent IA en production, ce qui m'intéresse c'est la mécanique interne : la boucle de gameplay, le schéma de données, la latence de l'API. J'apprends en construisant, puis je recommence en mieux.",
       categories: {
         languages: "Langages",
         web: "Web & Frameworks",
         specializations: "Spécialisations",
       },
-      education: "Éducation",
+      stackTitle: "Technologies du quotidien",
+      education: "Parcours",
       bachelor: "Bachelor en Informatique",
       esgi: "ESGI - 2ème Année (2024-2025)",
       specialization: "Spécialisation en NSI (Sciences Numériques et Informatique)",
@@ -30,26 +56,43 @@ export const translations = {
       internship: "Stage en Développement Backend & IA (Sept - Nov 2025)",
       internshipDesc:
         "Développement backend spécialisé en Python et intégration d'IA. Création d'agents IA avancés et développement d'un jeu Roblox pour I-Avantage.",
+      current: "En cours",
     },
     projects: {
+      index: "02",
       title: "Projets en Vedette",
+      lead: "Huit projets, quatre domaines : jeux, web, mobile et systèmes bas niveau.",
       viewProject: "Voir le Projet",
+      gallery: "Voir la galerie",
+      source: "Code source",
+      visit: "Ouvrir le lien",
+      featured: "Projet phare",
+      screenshots: "captures",
+      filters: {
+        all: "Tout",
+        games: "Game Dev",
+        web: "Web & API",
+        mobile: "Mobile",
+        systems: "Systèmes",
+      },
+      filterLabel: "Filtrer les projets par domaine",
+      empty: "Aucun projet dans cette catégorie.",
       eternalSeasImages: {
         0: "Boutique des titres",
         1: "PNJ - Dialogue et quêtes",
         2: "Gameplay - Système de traînée au sol + effet visuel du vent",
         3: "Menu des statistiques",
-        4: "Système d’oxygène sous-marin"
+        4: "Système d'oxygène sous-marin",
       },
       poorToRichImages: {
-        0: "Job d’intérim",
+        0: "Job d'intérim",
         1: "Employé de bureau",
         2: "Achat de maison",
-        3: "Système de gain aléatoire"
+        3: "Système de gain aléatoire",
       },
       tensuraRPImages: {
         0: "Interface principale du gameplay",
-        1: "Menu de sorts et compétences"
+        1: "Menu de sorts et compétences",
       },
       eternalSeas:
         "RPG multiverses inspiré de OnePiece avec une progression 0-500, des quêtes, des boss et des mécaniques variées d'exploration.",
@@ -68,7 +111,17 @@ export const translations = {
       algoSuite:
         "Série d'exercices d'algorithmique couvrant la recherche dichotomique, tris (bulle, fusion), listes chaînées, piles, files, automates finis et combinaisons/permutations. Objectif : perfectionner la maîtrise de la logique et des structures de données fondamentales.",
     },
+    carousel: {
+      zoomHint: "Cliquer pour agrandir",
+      close: "Fermer la galerie",
+      prev: "Image précédente",
+      next: "Image suivante",
+      goTo: "Aller à l'image",
+      keyboardHint: "← → pour naviguer · Échap pour fermer",
+      screenshot: "Capture",
+    },
     contact: {
+      index: "03",
       title: "Contactez-moi",
       description:
         "Je suis en recherche d'une alternance pour cette année scolaire. Je suis motivé, rigoureux et toujours prêt à relever de nouveaux défis. Discutons ensemble de la façon dont je peux contribuer à votre équipe.",
@@ -79,39 +132,80 @@ export const translations = {
       location: "Localisation",
       ready: "Prêt à discuter d'une opportunité?",
       startConversation: "Me Contacter Pour Une Alternance",
+      copy: "Copier",
+      copied: "Copié dans le presse-papiers",
+      copyFailed: "Copie impossible, sélectionne le texte manuellement",
+      availability: "Disponibilité",
+      availabilityValue: "Alternance — année scolaire en cours",
+      responseTime: "Réponse sous 24 h en semaine",
     },
     footer: {
       tagline: "Développeur Full-Stack | Passionné par l'IA | Développeur de Jeux",
       rights: "Tous les droits réservés.",
       builtWith: "Construit avec React & Next.js",
       hostedOn: "Hébergé sur Vercel",
-      motto: "Toujours apprendre, toujours construire 🚀",
+      motto: "Toujours apprendre, toujours construire",
+      backToTop: "Retour en haut",
+      navTitle: "Navigation",
+      socialTitle: "Réseaux",
+    },
+    boot: {
+      line1: "boot: chargement du portfolio",
+      line2: "mount: projets, stack, contact",
+      line3: "ready",
+      skip: "Passer",
     },
   },
   en: {
     nav: {
       about: "About",
       projects: "Projects",
+      stack: "Stack",
       contact: "Contact",
       github: "GitHub",
+      openMenu: "Open menu",
+      closeMenu: "Close menu",
+      switchLanguage: "Switch to French",
+      sections: "Sections",
     },
     hero: {
       command: "> student_dev --init",
+      available: "Open to an apprenticeship",
       title: "Dylan Clochard",
       subtitle: "Full-Stack Developer | AI Enthusiast | Game Developer",
+      roles: ["Full-Stack Developer", "Game Developer", "AI Integrator", "Python & Go Backend"],
       description:
         "Computer Science student at ESGI building immersive web experiences, intelligent systems, and engaging game mechanics. Specialized in Python, Lua, Go, and modern web technologies.",
       exploreCTA: "Explore My Work",
       contactCTA: "Get In Touch",
+      scrollHint: "Scroll",
+      metrics: {
+        projects: "Shipped projects",
+        languages: "Languages used",
+        internship: "Months of AI internship",
+      },
+      terminal: {
+        title: "~/dylan — zsh",
+        command: "whoami --verbose",
+        role: "Full-Stack & Game Developer",
+        school: "ESGI · BSc Computer Science",
+        location: "Aix-en-Provence, France",
+        focus: "Gameplay systems · Python backend · AI agents",
+        status: "Looking for an apprenticeship",
+      },
     },
     about: {
+      index: "01",
       title: "About & Skills",
+      lead: "I build systems that actually run, not demos.",
+      bio: "From the economy of a Roblox tycoon to an AI agent in production, what hooks me is the machinery underneath: the gameplay loop, the data schema, the API latency. I learn by building, then I rebuild it better.",
       categories: {
         languages: "Languages",
         web: "Web & Frameworks",
         specializations: "Specializations",
       },
-      education: "Education",
+      stackTitle: "Everyday technologies",
+      education: "Background",
       bachelor: "Bachelor's in Computer Science",
       esgi: "ESGI - 2nd Year (2024-2025)",
       specialization: "Specialization in NSI (Numerical and Information Sciences)",
@@ -119,26 +213,43 @@ export const translations = {
       internship: "Backend Development & AI Internship (Sept - Nov 2025)",
       internshipDesc:
         "Specialized in Python backend development and advanced AI agent integration. Created a Roblox game for I-Avantage.",
+      current: "Ongoing",
     },
     projects: {
+      index: "02",
       title: "Featured Projects",
+      lead: "Eight projects across four domains: games, web, mobile and low-level systems.",
       viewProject: "View Project",
+      gallery: "View gallery",
+      source: "Source code",
+      visit: "Open link",
+      featured: "Flagship project",
+      screenshots: "screenshots",
+      filters: {
+        all: "All",
+        games: "Game Dev",
+        web: "Web & API",
+        mobile: "Mobile",
+        systems: "Systems",
+      },
+      filterLabel: "Filter projects by domain",
+      empty: "No project in this category.",
       eternalSeasImages: {
         0: "Title Shop",
         1: "NPC Dialogues & Quests",
         2: "Gameplay - Ground drag system + wind visual effects",
         3: "Statistics Menu",
-        4: "Underwater Oxygen System"
+        4: "Underwater Oxygen System",
       },
       poorToRichImages: {
         0: "Temp Job",
         1: "Office Worker",
         2: "House Purchase",
-        3: "Randomized Earning System"
+        3: "Randomized Earning System",
       },
       tensuraRPImages: {
         0: "Main Gameplay Interface",
-        1: "Spells & Skills Menu"
+        1: "Spells & Skills Menu",
       },
       eternalSeas:
         "Multi-universe OnePiece-inspired RPG with 0-500 progression, quests, boss fights, and varied exploration mechanics.",
@@ -157,7 +268,17 @@ export const translations = {
       algoSuite:
         "Series of algorithm exercises covering binary search, sorting (bubble, merge), linked lists, stacks, queues, finite automata, and combinations/permutations. Goal: master fundamental logic and data structure concepts.",
     },
+    carousel: {
+      zoomHint: "Click to enlarge",
+      close: "Close gallery",
+      prev: "Previous image",
+      next: "Next image",
+      goTo: "Go to image",
+      keyboardHint: "← → to navigate · Esc to close",
+      screenshot: "Screenshot",
+    },
     contact: {
+      index: "03",
       title: "Contact me",
       description:
         "I'm actively seeking an internship opportunity for this academic year. I'm motivated, disciplined, and always ready to tackle new challenges. Let's discuss how I can contribute to your team.",
@@ -168,16 +289,31 @@ export const translations = {
       location: "Location",
       ready: "Ready to discuss an opportunity?",
       startConversation: "Contact Me About An Internship",
+      copy: "Copy",
+      copied: "Copied to clipboard",
+      copyFailed: "Copy failed, please select the text manually",
+      availability: "Availability",
+      availabilityValue: "Apprenticeship — current academic year",
+      responseTime: "Replies within 24 h on weekdays",
     },
     footer: {
       tagline: "Full-Stack Developer | AI Enthusiast | Game Developer",
       rights: "All rights reserved.",
       builtWith: "Built with React & Next.js",
       hostedOn: "Hosted on Vercel",
-      motto: "Always learning, always building 🚀",
+      motto: "Always learning, always building",
+      backToTop: "Back to top",
+      navTitle: "Navigation",
+      socialTitle: "Social",
+    },
+    boot: {
+      line1: "boot: loading portfolio",
+      line2: "mount: projects, stack, contact",
+      line3: "ready",
+      skip: "Skip",
     },
   },
-}
+} as const
 
 export type Language = "fr" | "en"
-export type Translations = typeof translations.fr
+export type Translations = (typeof translations)["fr"]

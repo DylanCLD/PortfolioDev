@@ -1,9 +1,11 @@
 "use client"
 
-import type React from "react"
-import { useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
-import { ChevronLeft, ChevronRight, X } from "@/components/icons"
+import { ChevronLeft, ChevronRight, Maximize, X } from "@/components/icons"
+import { useLanguage } from "@/lib/language-context"
+import { translations } from "@/lib/translations"
+import { cn } from "@/lib/utils"
 
 interface ProjectCarouselProps {
   images: string[]
@@ -14,135 +16,198 @@ interface ProjectCarouselProps {
 }
 
 export function ProjectCarousel({ images, imageTitles = [], projectName, isOpen, onClose }: ProjectCarouselProps) {
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [isZoomed, setIsZoomed] = useState(false)
+  const [index, setIndex] = useState(0)
+  const [zoomed, setZoomed] = useState(false)
+  const dialogRef = useRef<HTMLDivElement>(null)
+  const { language } = useLanguage()
+  const t = translations[language].carousel
 
-  if (!isOpen) return null
+  const count = images.length
 
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % images.length)
-  }
+  const go = useCallback(
+    (delta: number) => {
+      if (count === 0) return
+      setZoomed(false)
+      setIndex((current) => (current + delta + count) % count)
+    },
+    [count],
+  )
 
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length)
-  }
+  // Reset to the first slide whenever a different project opens, so the modal
+  // never shows a stale (or out-of-range) slide from the previous gallery.
+  useEffect(() => {
+    if (isOpen) {
+      setIndex(0)
+      setZoomed(false)
+    }
+  }, [isOpen, projectName])
 
-  const handleOverlayClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) {
-      if (isZoomed) {
-        setIsZoomed(false)
-      } else {
-        onClose()
+  // Keyboard: Escape closes, arrows navigate.
+  useEffect(() => {
+    if (!isOpen) return
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault()
+        if (zoomed) setZoomed(false)
+        else onClose()
+      } else if (event.key === "ArrowRight") {
+        go(1)
+      } else if (event.key === "ArrowLeft") {
+        go(-1)
       }
     }
-  }
 
-  const currentImageTitle = imageTitles[currentIndex] || `Screenshot ${currentIndex + 1}`
+    document.addEventListener("keydown", onKeyDown)
+    return () => document.removeEventListener("keydown", onKeyDown)
+  }, [isOpen, zoomed, go, onClose])
 
-  const modalContent = (
-    <div className="fixed inset-0 bg-black/95 flex items-center justify-center z-[9999]" onClick={handleOverlayClick}>
-      {isZoomed && (
-        <div className="fixed inset-0 bg-black/98 flex flex-col items-center justify-center z-[10000]">
-          <button
-            onClick={() => setIsZoomed(false)}
-            className="absolute top-4 right-4 p-2 bg-background/80 hover:bg-background rounded-lg z-10 transition-colors"
-          >
-            <X className="w-6 h-6 text-accent" />
-          </button>
+  // Lock background scrolling while the dialog is open, without the layout
+  // shift that removing the scrollbar would cause.
+  useEffect(() => {
+    if (!isOpen) return
+    const { overflow, paddingRight } = document.body.style
+    const gutter = window.innerWidth - document.documentElement.clientWidth
+    document.body.style.overflow = "hidden"
+    if (gutter > 0) document.body.style.paddingRight = `${gutter}px`
+    return () => {
+      document.body.style.overflow = overflow
+      document.body.style.paddingRight = paddingRight
+    }
+  }, [isOpen])
 
+  // Move focus into the dialog so the keyboard handlers and Tab order apply.
+  useEffect(() => {
+    if (isOpen) dialogRef.current?.focus()
+  }, [isOpen])
+
+  if (!isOpen || count === 0) return null
+
+  const title = imageTitles[index] || `${t.screenshot} ${index + 1}`
+  // Preload the neighbours so arrow navigation does not flash.
+  const neighbours = count > 1 ? [images[(index + 1) % count], images[(index - 1 + count) % count]] : []
+
+  const content = (
+    <div
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-background/95 p-4 backdrop-blur-sm"
+      onClick={(event) => {
+        if (event.target === event.currentTarget) onClose()
+      }}
+    >
+      <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label={`${projectName} — ${title}`}
+        tabIndex={-1}
+        className="edge-light surface-card flex max-h-[92vh] w-full max-w-6xl flex-col overflow-hidden bg-surface-1 shadow-[var(--shadow-lg)] outline-none"
+      >
+        <div className="flex items-center justify-between gap-4 border-b border-border px-5 py-3.5">
+          <div className="min-w-0">
+            <h2 className="truncate text-sm font-semibold">{projectName}</h2>
+            <p className="truncate font-mono text-xs text-muted-foreground">{title}</p>
+          </div>
+          <div className="flex shrink-0 items-center gap-3">
+            <span className="tabular hidden font-mono text-xs text-muted-foreground sm:inline">
+              {index + 1} / {count}
+            </span>
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label={t.close}
+              className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg border border-border bg-surface-2 text-muted-foreground transition-colors hover:border-accent/60 hover:text-foreground"
+            >
+              <X className="h-4.5 w-4.5" />
+            </button>
+          </div>
+        </div>
+
+        <div className="relative flex min-h-0 flex-1 items-center justify-center overflow-auto bg-background">
           <img
-            src={images[currentIndex] || "/placeholder.svg"}
-            alt={currentImageTitle}
-            className="max-w-[95vw] max-h-[95vh] object-contain"
+            key={images[index]}
+            src={images[index]}
+            alt={title}
+            decoding="async"
+            onClick={() => setZoomed((value) => !value)}
+            className={cn(
+              "select-none transition-transform duration-300",
+              zoomed ? "max-w-none cursor-zoom-out" : "max-h-[62vh] w-full cursor-zoom-in object-contain",
+            )}
           />
 
-          <div className="mt-6 text-center">
-            <h3 className="text-xl font-bold text-accent">{currentImageTitle}</h3>
-            <p className="text-sm text-muted-foreground mt-2">
-              {currentIndex + 1} / {images.length}
-            </p>
-          </div>
+          {!zoomed ? (
+            <span className="pointer-events-none absolute bottom-3 left-1/2 -translate-x-1/2 rounded-md border border-border bg-background/85 px-2.5 py-1.5 font-mono text-[0.7rem] text-muted-foreground backdrop-blur">
+              <Maximize className="mr-1.5 inline h-3 w-3 align-[-2px]" />
+              {t.zoomHint}
+            </span>
+          ) : null}
+
+          {count > 1 ? (
+            <>
+              <button
+                type="button"
+                onClick={() => go(-1)}
+                aria-label={t.prev}
+                className="absolute left-3 inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-lg border border-border bg-background/80 text-foreground backdrop-blur transition-colors hover:border-accent/60 hover:text-accent-bright"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => go(1)}
+                aria-label={t.next}
+                className="absolute right-3 inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-lg border border-border bg-background/80 text-foreground backdrop-blur transition-colors hover:border-accent/60 hover:text-accent-bright"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </>
+          ) : null}
         </div>
-      )}
 
-      {!isZoomed && (
-        <div className="bg-card border border-accent/30 rounded-lg w-full max-w-5xl h-auto mx-4 flex flex-col relative shadow-2xl shadow-accent/20">
-          {/* Close button */}
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 p-2 bg-background/80 hover:bg-background rounded-lg z-10 transition-colors"
-          >
-            <X className="w-6 h-6 text-accent" />
-          </button>
-
-          <div className="relative bg-black/40 flex items-center justify-center overflow-hidden rounded-t-lg h-80 cursor-pointer group">
-            <img
-              src={images[currentIndex] || "/placeholder.svg"}
-              alt={currentImageTitle}
-              className="w-full h-full object-contain group-hover:brightness-110 transition-all duration-300"
-              onClick={() => setIsZoomed(true)}
-            />
-
-            {/* Zoom indicator */}
-            <div className="absolute bottom-4 right-4 bg-black/50 px-3 py-1 rounded text-sm text-white opacity-0 group-hover:opacity-100 transition-opacity">
-              Cliquer pour zoomer
-            </div>
-
-            {/* Navigation buttons */}
-            {images.length > 1 && (
-              <>
-                <button
-                  onClick={prevSlide}
-                  className="absolute left-4 p-3 bg-accent/20 hover:bg-accent/40 rounded-lg transition-all duration-300 z-10"
-                >
-                  <ChevronLeft className="w-8 h-8 text-accent" />
-                </button>
-                <button
-                  onClick={nextSlide}
-                  className="absolute right-4 p-3 bg-accent/20 hover:bg-accent/40 rounded-lg transition-all duration-300 z-10"
-                >
-                  <ChevronRight className="w-8 h-8 text-accent" />
-                </button>
-              </>
-            )}
-          </div>
-
-          <div className="p-6 flex flex-col gap-4 border-t border-border">
-            <div className="flex items-center justify-between">
-              <div className="flex flex-col gap-2">
-                <h3 className="text-lg font-bold text-accent">{projectName}</h3>
-                <p className="text-sm text-muted-foreground">{currentImageTitle}</p>
-              </div>
-              <span className="text-sm text-muted-foreground">
-                {currentIndex + 1} / {images.length}
-              </span>
-            </div>
-
-            {/* Thumbnail carousel */}
-            {images.length > 1 && (
-              <div className="flex gap-3 overflow-x-auto">
-                {images.map((image, index) => (
+        {count > 1 ? (
+          <div className="flex items-center gap-3 border-t border-border px-5 py-4">
+            <ul className="flex flex-1 gap-2.5 overflow-x-auto pb-1">
+              {images.map((image, thumbIndex) => (
+                <li key={image}>
                   <button
-                    key={index}
-                    onClick={() => setCurrentIndex(index)}
-                    className={`flex-shrink-0 w-20 h-20 rounded border-2 overflow-hidden transition-all ${
-                      currentIndex === index ? "border-accent scale-105" : "border-border hover:border-accent/50"
-                    }`}
+                    type="button"
+                    onClick={() => {
+                      setZoomed(false)
+                      setIndex(thumbIndex)
+                    }}
+                    aria-label={`${t.goTo} ${thumbIndex + 1}`}
+                    aria-current={thumbIndex === index ? "true" : undefined}
+                    className={cn(
+                      "h-16 w-20 shrink-0 cursor-pointer overflow-hidden rounded-md border transition-all duration-200",
+                      thumbIndex === index
+                        ? "border-accent ring-2 ring-accent/30"
+                        : "border-border opacity-60 hover:opacity-100",
+                    )}
                   >
                     <img
-                      src={image || "/placeholder.svg"}
-                      alt={imageTitles[index] || `Thumbnail ${index + 1}`}
-                      className="w-full h-full object-cover"
+                      src={image}
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                      className="h-full w-full object-cover"
                     />
                   </button>
-                ))}
-              </div>
-            )}
+                </li>
+              ))}
+            </ul>
+            <p className="hidden shrink-0 font-mono text-[0.7rem] text-muted-foreground lg:block">{t.keyboardHint}</p>
           </div>
-        </div>
-      )}
+        ) : null}
+      </div>
+
+      {/* Warm the adjacent slides */}
+      <div aria-hidden="true" className="hidden">
+        {neighbours.map((src) => (
+          <img key={src} src={src} alt="" />
+        ))}
+      </div>
     </div>
   )
 
-  return createPortal(modalContent, document.body)
+  return createPortal(content, document.body)
 }

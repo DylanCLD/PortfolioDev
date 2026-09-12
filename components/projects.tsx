@@ -1,189 +1,332 @@
 "use client"
 
-import { useState } from "react"
-import { ExternalLink } from "@/components/icons"
+import { useMemo, useState } from "react"
+import { ArrowUpRight, Github, Maximize, Sparkles } from "@/components/icons"
+import { Reveal } from "@/components/reveal"
+import { SectionHeading } from "@/components/section-heading"
+import { ProjectCarousel } from "@/components/project-carousel"
 import { useLanguage } from "@/lib/language-context"
 import { translations } from "@/lib/translations"
-import { ProjectCarousel } from "@/components/project-carousel"
+import { cn } from "@/lib/utils"
 
-const projectsData = [
+type Category = "games" | "web" | "mobile" | "systems"
+
+interface Project {
+  id: string
+  title: string
+  /** Key into translations.projects for the description. */
+  descriptionKey: string
+  category: Category
+  tech: string[]
+  /** Absolute URL, or null when the project has no public link. */
+  link: string | null
+  featured?: boolean
+  images: string[]
+}
+
+const BLOB = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com"
+
+const projectsData: Project[] = [
   {
+    id: "eternalSeas",
     title: "Eternal Seas – RPG Roblox",
     descriptionKey: "eternalSeas",
+    category: "games",
     tech: ["Lua", "Roblox Studio", "Roact", "Blender"],
     link: "https://www.roblox.com/",
-    color: "from-blue-600 to-cyan-600",
-    showButton: true,
-    showCarousel: true,
+    featured: true,
     images: [
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-T5wUjR05pLOxzgzBRxv5lKc73bu3IO.png",
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-PfhNngzIey6UC7tPjNpecY1uFCbEVp.png",
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-5VDTZtc0w3443ZX8WJnEIPHXAEySjE.png",
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-IBm8HxXuQiPholI1u80oBWDUb8TfTj.png",
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-8b9tHRTwTj01DdqzrnVyVMk5yBhQWI.png",
+      `${BLOB}/image-T5wUjR05pLOxzgzBRxv5lKc73bu3IO.png`,
+      `${BLOB}/image-PfhNngzIey6UC7tPjNpecY1uFCbEVp.png`,
+      `${BLOB}/image-5VDTZtc0w3443ZX8WJnEIPHXAEySjE.png`,
+      `${BLOB}/image-IBm8HxXuQiPholI1u80oBWDUb8TfTj.png`,
+      `${BLOB}/image-8b9tHRTwTj01DdqzrnVyVMk5yBhQWI.png`,
     ],
   },
   {
+    id: "poorToRich",
     title: "Poor to Rich Tycoon",
     descriptionKey: "poorToRich",
+    category: "games",
     tech: ["Lua", "Roblox Studio", "ProfileService", "Knit"],
     link: "https://www.roblox.com/",
-    color: "from-yellow-600 to-orange-600",
-    showButton: true,
-    showCarousel: true,
     images: [
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-x5p1M3YnZv5ja8AY1tgl5H9HP30KC0.png",
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-HlFivTl0x6PIiF1pBQrZF0jByRKVKf.png",
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-UpgIUSXYcotgtU8mutwNMUFwjSObr9.png",
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-elTLPpMtvaYAj0m2fF48FKzYjdztJ2.png",
+      `${BLOB}/image-x5p1M3YnZv5ja8AY1tgl5H9HP30KC0.png`,
+      `${BLOB}/image-HlFivTl0x6PIiF1pBQrZF0jByRKVKf.png`,
+      `${BLOB}/image-UpgIUSXYcotgtU8mutwNMUFwjSObr9.png`,
+      `${BLOB}/image-elTLPpMtvaYAj0m2fF48FKzYjdztJ2.png`,
     ],
   },
   {
+    id: "tensuraRP",
     title: "Tensura RP – Rise of the Slimes",
     descriptionKey: "tensuraRP",
+    category: "games",
     tech: ["Lua", "GLua", "Garry's Mod", "Hammer++", "Blender", "Photoshop"],
-    link: "#",
-    color: "from-indigo-600 to-purple-600",
-    showButton: true,
-    showCarousel: true,
-    images: [
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-mB0SroAIKhFaQAuLXUzCxCyUVST7U0.png",
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-fwUL5B5ocKYgASXAo3XlJUrifNMxwj.png",
-    ],
+    link: null,
+    images: [`${BLOB}/image-mB0SroAIKhFaQAuLXUzCxCyUVST7U0.png`, `${BLOB}/image-fwUL5B5ocKYgASXAo3XlJUrifNMxwj.png`],
   },
   {
+    id: "mushokuTensei",
     title: "Mushoku Tensei RP – Garry's Mod",
     descriptionKey: "mushokuTensei",
+    category: "games",
     tech: ["Lua", "GLua", "Garry's Mod", "Hammer++"],
     link: "https://steamcommunity.com/app/4000",
-    color: "from-purple-600 to-pink-600",
-    showButton: true,
-    showCarousel: false,
     images: [],
   },
   {
+    id: "inventoryManager",
     title: "Inventory Manager",
     descriptionKey: "inventoryManager",
+    category: "mobile",
     tech: ["Flutter", "Dart", "Firebase", "Material Design"],
     link: "https://github.com/DylanCLD/inventory-manager",
-    color: "from-green-600 to-emerald-600",
-    showButton: true,
-    showCarousel: false,
     images: [],
   },
   {
+    id: "pokeStrat",
     title: "PokéStrat",
     descriptionKey: "pokeStrat",
+    category: "web",
     tech: ["Go", "HTML/CSS", "SQLite", "REST API"],
     link: "https://github.com/DylanCLD/pokestrat",
-    color: "from-red-600 to-yellow-600",
-    showButton: true,
-    showCarousel: false,
     images: [],
   },
   {
+    id: "weatherData",
     title: "WeatherData Manager",
     descriptionKey: "weatherData",
+    category: "systems",
     tech: ["C", "Struct", "Union", "Enum", "Binary I/O"],
-    link: "https://github.com/DylanCLD/weatherdata",
-    color: "from-cyan-600 to-blue-600",
-    showButton: false,
-    showCarousel: false,
+    link: null,
     images: [],
   },
   {
+    id: "algoSuite",
     title: "AlgoSuite – Exercices d'algorithmique",
     descriptionKey: "algoSuite",
+    category: "systems",
     tech: ["Python", "VSCode", "Jupyter", "Algorithmes"],
-    link: "#",
-    color: "from-emerald-600 to-teal-600",
-    showButton: false,
-    showCarousel: false,
+    link: null,
     images: [],
   },
 ]
 
+const FILTERS: Array<{ value: Category | "all"; key: keyof (typeof translations)["fr"]["projects"]["filters"] }> = [
+  { value: "all", key: "all" },
+  { value: "games", key: "games" },
+  { value: "web", key: "web" },
+  { value: "mobile", key: "mobile" },
+  { value: "systems", key: "systems" },
+]
+
+function isGithub(link: string) {
+  return link.includes("github.com")
+}
+
 export default function Projects() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-  const [selectedProject, setSelectedProject] = useState<string | null>(null)
+  const [filter, setFilter] = useState<Category | "all">("all")
+  const [openProject, setOpenProject] = useState<string | null>(null)
   const { language } = useLanguage()
   const t = translations[language]
 
+  const visible = useMemo(
+    () => (filter === "all" ? projectsData : projectsData.filter((project) => project.category === filter)),
+    [filter],
+  )
+
+  const active = projectsData.find((project) => project.id === openProject) ?? null
+  const activeTitles = active
+    ? Object.values(
+        ((t.projects as Record<string, unknown>)[`${active.id}Images`] as Record<string, string> | undefined) ?? {},
+      )
+    : []
+
+  const counts = useMemo(() => {
+    const base: Record<string, number> = { all: projectsData.length }
+    for (const project of projectsData) {
+      base[project.category] = (base[project.category] ?? 0) + 1
+    }
+    return base
+  }, [])
+
   return (
-    <section id="projects" className="py-20 px-4 relative">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl font-bold mb-16 text-pretty fade-in">{t.projects.title}</h2>
+    <section id="projects" className="relative px-4 py-24 sm:px-6 md:py-32 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <SectionHeading
+          index={t.projects.index}
+          title={t.projects.title}
+          lead={t.projects.lead}
+          aside={
+            <div
+              role="group"
+              aria-label={t.projects.filterLabel}
+              className="flex flex-wrap gap-1.5 rounded-xl border border-border bg-surface-1/70 p-1.5 backdrop-blur"
+            >
+              {FILTERS.map(({ value, key }) => {
+                const selected = filter === value
+                return (
+                  <button
+                    key={value}
+                    type="button"
+                    onClick={() => setFilter(value)}
+                    aria-pressed={selected}
+                    className={cn(
+                      "inline-flex min-h-9 cursor-pointer items-center gap-1.5 rounded-lg px-3 text-sm transition-colors duration-200",
+                      selected
+                        ? "bg-accent text-accent-foreground font-medium"
+                        : "text-muted-foreground hover:bg-surface-2 hover:text-foreground",
+                    )}
+                  >
+                    {t.projects.filters[key]}
+                    <span className={cn("tabular font-mono text-[0.65rem]", selected ? "opacity-70" : "opacity-50")}>
+                      {counts[value] ?? 0}
+                    </span>
+                  </button>
+                )
+              })}
+            </div>
+          }
+        />
 
-        <div className="grid md:grid-cols-2 gap-6 lg:gap-8 animate-stagger">
-          {projectsData.map((project, index) => {
-            const imageTitlesKey = `${project.descriptionKey}Images` as keyof typeof t.projects
-            const imageTitles = project.showCarousel ? Object.values(t.projects[imageTitlesKey] || {}) : []
+        {visible.length === 0 ? (
+          <p className="py-16 text-center text-muted-foreground">{t.projects.empty}</p>
+        ) : (
+          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {visible.map((project, index) => {
+              const description = (t.projects as Record<string, unknown>)[project.descriptionKey] as string
+              const hasGallery = project.images.length > 0
+              const wide = project.featured && filter === "all"
+              const shownTech = project.tech.slice(0, 4)
+              const hiddenTech = project.tech.length - shownTech.length
 
-            return (
-              <div key={project.title}>
-                <ProjectCarousel
-                  images={project.images}
-                  imageTitles={imageTitles}
-                  projectName={project.title}
-                  isOpen={selectedProject === project.title}
-                  onClose={() => setSelectedProject(null)}
-                />
-
-                <div
-                  onMouseEnter={() => setHoveredIndex(index)}
-                  onMouseLeave={() => setHoveredIndex(null)}
-                  className="group relative"
+              return (
+                <Reveal
+                  key={project.id}
+                  delay={Math.min(index, 5) * 70}
+                  className={cn(wide && "md:col-span-2 xl:col-span-2")}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg blur" />
+                  <article
+                    className={cn(
+                      "edge-light surface-card group relative flex h-full flex-col overflow-hidden bg-surface-1/70 backdrop-blur transition-[border-color,transform,box-shadow] duration-300",
+                      "hover:-translate-y-0.5 hover:border-border-strong hover:shadow-[var(--shadow-glow-soft)]",
+                    )}
+                  >
+                    {hasGallery ? (
+                      <button
+                        type="button"
+                        onClick={() => setOpenProject(project.id)}
+                        className="relative block w-full cursor-pointer overflow-hidden border-b border-border bg-surface-3 text-left"
+                        aria-label={`${t.projects.gallery} — ${project.title}`}
+                      >
+                        <span className={cn("block", wide ? "aspect-[21/9]" : "aspect-[16/10]")}>
+                          <img
+                            src={project.images[0]}
+                            alt=""
+                            loading="lazy"
+                            decoding="async"
+                            className="h-full w-full object-cover opacity-85 transition-[opacity,transform] duration-500 group-hover:scale-[1.03] group-hover:opacity-100"
+                          />
+                        </span>
+                        <span
+                          aria-hidden="true"
+                          className="absolute inset-0 bg-gradient-to-t from-surface-1 via-surface-1/20 to-transparent"
+                        />
+                        <span className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-md border border-border bg-background/80 px-2.5 py-1.5 font-mono text-[0.7rem] text-foreground backdrop-blur">
+                          <Maximize className="h-3 w-3" />
+                          {project.images.length} {t.projects.screenshots}
+                        </span>
+                        {project.featured ? (
+                          <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-md border border-accent/40 bg-accent/15 px-2.5 py-1 font-mono text-[0.7rem] text-accent-bright backdrop-blur">
+                            <Sparkles className="h-3 w-3" />
+                            {t.projects.featured}
+                          </span>
+                        ) : null}
+                      </button>
+                    ) : null}
 
-                  <div className="relative block p-6 bg-card border border-border rounded-lg hover:border-accent hover:shadow-lg hover:shadow-accent/20 transition-all duration-300 h-full overflow-hidden group">
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}
-                    />
+                    <div className="flex flex-1 flex-col p-6">
+                      <p className="section-index mb-3">{t.projects.filters[project.category]}</p>
 
-                    <div className="relative z-10">
-                      <h3 className="text-xl font-bold mb-3 group-hover:text-accent transition-colors">
+                      <h3 className="text-balance text-lg font-semibold leading-snug transition-colors duration-200 group-hover:text-accent-bright">
                         {project.title}
                       </h3>
 
-                      <p className="text-muted-foreground mb-4 text-sm leading-relaxed">
-                        {t.projects[project.descriptionKey as keyof typeof t.projects]}
-                      </p>
+                      <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{description}</p>
 
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {project.tech.map((tech) => (
-                          <span
+                      <ul className="mt-5 flex flex-wrap gap-1.5">
+                        {shownTech.map((tech) => (
+                          <li
                             key={tech}
-                            className="px-2 py-1 bg-accent/10 text-accent rounded text-xs font-mono hover:bg-accent/20 transition-colors duration-300"
+                            className="rounded border border-border bg-surface-2 px-2 py-1 font-mono text-[0.7rem] text-muted-foreground"
                           >
                             {tech}
-                          </span>
+                          </li>
                         ))}
-                      </div>
+                        {hiddenTech > 0 ? (
+                          <li
+                            title={project.tech.slice(4).join(", ")}
+                            className="rounded border border-border bg-surface-2 px-2 py-1 font-mono text-[0.7rem] text-muted-foreground"
+                          >
+                            +{hiddenTech}
+                          </li>
+                        ) : null}
+                      </ul>
 
-                      {project.showButton && (
-                        <button
-                          onClick={() => {
-                            if (project.showCarousel) {
-                              setSelectedProject(project.title)
-                            } else {
-                              window.open(project.link, "_blank")
-                            }
-                          }}
-                          className="inline-flex items-center gap-2 text-accent font-semibold text-sm group-hover:gap-3 transition-all hover:text-accent/80"
-                        >
-                          {t.projects.viewProject}
-                          <ExternalLink className="w-4 h-4" />
-                        </button>
-                      )}
+                      {hasGallery || project.link ? (
+                        <div className="mt-6 flex flex-wrap items-center gap-2 border-t border-border pt-5">
+                          {hasGallery ? (
+                            <button
+                              type="button"
+                              onClick={() => setOpenProject(project.id)}
+                              className="inline-flex min-h-10 cursor-pointer items-center gap-2 rounded-lg border border-border bg-surface-2 px-3.5 text-sm font-medium transition-colors duration-200 hover:border-accent/60 hover:text-accent-bright"
+                            >
+                              <Maximize className="h-3.5 w-3.5" />
+                              {t.projects.gallery}
+                            </button>
+                          ) : null}
+
+                          {project.link ? (
+                            <a
+                              href={project.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex min-h-10 items-center gap-2 rounded-lg px-3.5 text-sm text-muted-foreground transition-colors duration-200 hover:text-accent-bright"
+                            >
+                              {isGithub(project.link) ? (
+                                <>
+                                  <Github className="h-3.5 w-3.5" />
+                                  {t.projects.source}
+                                </>
+                              ) : (
+                                <>
+                                  {t.projects.visit}
+                                  <ArrowUpRight className="h-3.5 w-3.5" />
+                                </>
+                              )}
+                            </a>
+                          ) : null}
+                        </div>
+                      ) : null}
                     </div>
-                  </div>
-                </div>
-              </div>
-            )
-          })}
-        </div>
+                  </article>
+                </Reveal>
+              )
+            })}
+          </div>
+        )}
       </div>
+
+      {/* One modal instance, driven by the open project — the old code mounted
+          a carousel per card and kept stale slide state between projects. */}
+      <ProjectCarousel
+        images={active?.images ?? []}
+        imageTitles={activeTitles}
+        projectName={active?.title ?? ""}
+        isOpen={active !== null}
+        onClose={() => setOpenProject(null)}
+      />
     </section>
   )
 }

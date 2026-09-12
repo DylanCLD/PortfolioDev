@@ -1,8 +1,28 @@
 "use client"
 
-import { Code2, Zap, Gamepad2 } from "@/components/icons"
+import { Briefcase, Code2, Gamepad2, GraduationCap, Layers, Zap } from "@/components/icons"
+import { Reveal } from "@/components/reveal"
+import { SectionHeading } from "@/components/section-heading"
 import { useLanguage } from "@/lib/language-context"
 import { translations } from "@/lib/translations"
+
+const STACK_MARQUEE = [
+  "Python",
+  "Lua",
+  "Go",
+  "TypeScript",
+  "React",
+  "Next.js",
+  "Flutter",
+  "Dart",
+  "Firebase",
+  "SQL",
+  "C",
+  "PHP",
+  "Roblox Studio",
+  "Blender",
+  "Git",
+]
 
 export default function About() {
   const { language } = useLanguage()
@@ -12,64 +32,129 @@ export default function About() {
     {
       category: t.about.categories.languages,
       items: ["Python", "Lua", "C", "Go", "PHP", "JavaScript", "TypeScript", "Dart"],
-      icon: Code2,
+      Icon: Code2,
     },
     {
       category: t.about.categories.web,
       items: ["React", "Next.js", "HTML/CSS", "Flutter", "Firebase", "SQL"],
-      icon: Zap,
+      Icon: Zap,
     },
     {
       category: t.about.categories.specializations,
       items: ["Game Development", "AI/ML", "Backend Systems", "Database Design", "API Development"],
-      icon: Gamepad2,
+      Icon: Gamepad2,
+    },
+  ]
+
+  const timeline = [
+    {
+      Icon: Briefcase,
+      title: t.about.internship,
+      subtitle: t.about.internshipDesc,
+      badge: null,
+    },
+    {
+      Icon: GraduationCap,
+      title: t.about.bachelor,
+      subtitle: `${t.about.esgi} · ${t.about.specialization}`,
+      badge: t.about.current,
     },
   ]
 
   return (
-    <section id="about" className="py-20 px-4 bg-muted/30 relative">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl font-bold mb-16 text-pretty fade-in">{t.about.title}</h2>
+    <section id="about" className="relative px-4 py-24 sm:px-6 md:py-32 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <SectionHeading index={t.about.index} title={t.about.title} lead={t.about.lead} />
 
-        <div className="grid md:grid-cols-3 gap-8 mb-16 animate-stagger">
-          {skills.map((skill) => {
-            const Icon = skill.icon
-            return (
-              <div
-                key={skill.category}
-                className="p-6 bg-card border border-border rounded-lg hover:border-accent hover:shadow-lg hover:shadow-accent/20 transition-all duration-300"
-              >
-                <Icon className="w-8 h-8 text-accent mb-4" />
-                <h3 className="text-xl font-bold mb-4">{skill.category}</h3>
-                <div className="flex flex-wrap gap-2">
-                  {skill.items.map((item) => (
-                    <span
-                      key={item}
-                      className="px-3 py-1 bg-accent/10 text-accent rounded-full text-sm font-mono hover:bg-accent/20 transition-colors duration-300"
-                    >
-                      {item}
-                    </span>
-                  ))}
+        <div className="grid gap-5 lg:grid-cols-3">
+          {/* Bio — the widest cell of the bento */}
+          <Reveal className="lg:col-span-2">
+            <article className="edge-light surface-card flex h-full flex-col justify-between gap-8 bg-surface-1/70 p-7 backdrop-blur md:p-9">
+              <p className="text-pretty text-lg leading-relaxed text-muted-foreground md:text-xl">{t.about.bio}</p>
+
+              <div>
+                <p className="section-index mb-4">{t.about.stackTitle}</p>
+                {/* Marquee: duplicated once so the translate(-50%) loop is seamless */}
+                <div
+                  className="relative overflow-hidden"
+                  style={{
+                    maskImage: "linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent)",
+                    WebkitMaskImage: "linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent)",
+                  }}
+                >
+                  <ul className="marquee-track flex w-max gap-2.5">
+                    {[...STACK_MARQUEE, ...STACK_MARQUEE].map((tech, index) => (
+                      <li
+                        key={`${tech}-${index}`}
+                        aria-hidden={index >= STACK_MARQUEE.length ? "true" : undefined}
+                        className="whitespace-nowrap rounded-md border border-border bg-surface-2 px-3 py-1.5 font-mono text-xs text-muted-foreground"
+                      >
+                        {tech}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
-            )
-          })}
-        </div>
+            </article>
+          </Reveal>
 
-        <div className="mb-16 p-6 bg-card border border-border rounded-lg">
-          <h3 className="text-2xl font-bold mb-4">{t.about.education}</h3>
-          <div className="space-y-4">
-            <div>
-              <h4 className="font-bold text-lg">{t.about.bachelor}</h4>
-              <p className="text-muted-foreground">{t.about.esgi}</p>
-              <p className="text-sm text-muted-foreground mt-2">{t.about.specialization}</p>
-            </div>
-            <div>
-              <h4 className="font-bold text-lg">{t.about.experience}</h4>
-              <p className="text-muted-foreground">{t.about.internship}</p>
-              <p className="text-sm text-muted-foreground">{t.about.internshipDesc}</p>
-            </div>
-          </div>
+          {/* Timeline */}
+          <Reveal delay={90}>
+            <article className="edge-light surface-card h-full bg-surface-1/70 p-7 backdrop-blur">
+              <h3 className="mb-6 flex items-center gap-2.5 text-base font-semibold">
+                <Layers className="h-4 w-4 text-accent-bright" />
+                {t.about.education}
+              </h3>
+
+              <ol className="relative space-y-7 border-l border-border pl-6">
+                {timeline.map((entry) => (
+                  <li key={entry.title} className="relative">
+                    <span
+                      aria-hidden="true"
+                      className="absolute -left-[1.9rem] top-1 grid h-5 w-5 place-items-center rounded-full border border-border bg-surface-2 text-accent-bright"
+                    >
+                      <entry.Icon className="h-3 w-3" />
+                    </span>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <h4 className="text-sm font-semibold leading-snug">{entry.title}</h4>
+                      {entry.badge ? (
+                        <span className="rounded-full border border-success/40 bg-success/10 px-2 py-0.5 font-mono text-[0.65rem] uppercase tracking-wider text-success">
+                          {entry.badge}
+                        </span>
+                      ) : null}
+                    </div>
+                    <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{entry.subtitle}</p>
+                  </li>
+                ))}
+              </ol>
+            </article>
+          </Reveal>
+
+          {/* Skill groups */}
+          {skills.map((skill, index) => (
+            <Reveal key={skill.category} delay={120 + index * 80}>
+              <article className="edge-light surface-card group h-full bg-surface-1/70 p-6 backdrop-blur transition-colors duration-300 hover:border-border-strong">
+                <div className="mb-5 flex items-center gap-3">
+                  <span className="grid h-9 w-9 place-items-center rounded-lg border border-border bg-surface-2 text-accent-bright transition-colors duration-300 group-hover:border-accent/50">
+                    <skill.Icon className="h-4 w-4" />
+                  </span>
+                  <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+                    {skill.category}
+                  </h3>
+                </div>
+                <ul className="flex flex-wrap gap-2">
+                  {skill.items.map((item) => (
+                    <li
+                      key={item}
+                      className="rounded-md border border-accent/20 bg-accent/10 px-2.5 py-1 font-mono text-xs text-accent-bright"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>
