@@ -1,7 +1,7 @@
 /* Local art-direction previews. Original production theme remains available. */
 :root[data-visual-style="obsidian"] {
   --background:#0b0c0e; --surface-1:#111316; --surface-2:#191c20; --surface-3:#24282e;
-  --foreground:#e9eaec; --muted-foreground:#a3a7af; --accent:#d9dde3; --accent-bright:#d9dde3; --accent-2:#abb3c1; --accent-foreground:#101216;
+  --foreground:#e9eaec; --muted-foreground:#a3a7af; --accent:#d9dde3; --accent-bright:#a8bdd5; --accent-2:#abb3c1; --accent-foreground:#101216;
   --border:#292d34; --border-strong:#697380; --success:#65c98c; --warning:#e5b65d; --destructive:#e87979; --wave-ink:#b5bdc9;
 }
 :root[data-visual-style="blueprint"] {
@@ -238,3 +238,14 @@ html[data-visual-style="obsidian"] .premium-profile header > .terminal-dots { he
 .legal-page h2 { font-size:22px; font-weight:500; margin-bottom:14px; }
 .legal-page p { color:var(--muted-foreground); line-height:1.85; margin-top:12px; }
 .legal-page a { color:var(--foreground); text-decoration:underline; text-underline-offset:4px; overflow-wrap:anywhere; }
+
+/* A few cool accents keep Obsidian quiet while giving details more presence. */
+html[data-visual-style="obsidian"] .premium-command,
+html[data-visual-style="obsidian"] .premium-profile dt { color:var(--accent-bright); }
+html[data-visual-style="obsidian"] .name-stop { color:var(--accent-bright); }
+.premium-location { display:flex; flex-wrap:wrap; justify-content:flex-end; align-items:center; gap:10px; }
+.premium-license { color:var(--accent-bright); border-left:1px solid var(--border-strong); padding-left:10px; }
+@media(max-width:480px) {
+  .premium-eyebrow { flex-direction:column; gap:12px; }
+  .premium-location { justify-content:flex-start; }
+}

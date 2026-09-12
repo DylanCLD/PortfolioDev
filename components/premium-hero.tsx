@@ -22,7 +22,7 @@ export default function PremiumHero() {
   return (
     <section className="premium-hero" aria-label={fr ? "Présentation" : "Introduction"}>
       <div className="premium-hero-inner">
-        <div className="premium-eyebrow"><span>DYLAN CLOCHARD / PORTFOLIO</span><span>{fr ? "MARSEILLE, FRANCE" : "BASED IN MARSEILLE"}</span></div>
+        <div className="premium-eyebrow"><span>DYLAN CLOCHARD / PORTFOLIO</span><span className="premium-location"><span>{fr ? "MARSEILLE, FRANCE" : "BASED IN MARSEILLE"}</span><span className="premium-license">{fr ? "PERMIS B" : "CATEGORY B LICENCE"}</span></span></div>
         <div className="premium-composition">
           <div className="premium-intro">
             <p className="premium-availability"><span aria-hidden="true" />{t.hero.available}</p>

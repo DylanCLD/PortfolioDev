@@ -52,7 +52,7 @@ export default function Contact() {
       href: "tel:+33783611209",
       copyValue: PHONE,
     },
-    { key: "location", Icon: MapPin, label: t.contact.location, value: "Marseille, France" },
+    { key: "location", Icon: MapPin, label: t.contact.location, value: language === "fr" ? "Marseille, France · Permis B" : "Marseille, France · Category B driving licence" },
   ]
 
   const copy = async (entry: ContactEntry) => {
@@ -136,7 +136,7 @@ export default function Contact() {
                           {external ? <ArrowUpRight className="h-3 w-3 shrink-0 opacity-60" /> : null}
                         </a>
                       ) : (
-                        <p className="truncate text-sm font-medium">{entry.value}</p>
+                        <p className="text-sm font-medium leading-relaxed">{entry.value}</p>
                       )}
                     </div>
 
