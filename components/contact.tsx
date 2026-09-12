@@ -52,7 +52,7 @@ export default function Contact() {
       href: "tel:+33783611209",
       copyValue: PHONE,
     },
-    { key: "location", Icon: MapPin, label: t.contact.location, value: "Aix-en-Provence, France" },
+    { key: "location", Icon: MapPin, label: t.contact.location, value: "Marseille, France" },
   ]
 
   const copy = async (entry: ContactEntry) => {

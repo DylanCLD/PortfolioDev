@@ -22,15 +22,17 @@ const SITE_URL = "https://dylanclochard.dev"
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Dylan Clochard — Développeur Full-Stack & Game Developer",
+    default: "Dylan Clochard — Développeur Web Full-Stack & Game Developer",
     template: "%s — Dylan Clochard",
   },
   description:
-    "Portfolio de Dylan Clochard, étudiant en informatique à l'ESGI. Développement full-stack, intégration d'IA et game development en Lua, Python, Go et Next.js.",
+    "Portfolio de Dylan Clochard, développeur web full-stack en recherche d'alternance (Bachelor Développeur Web & IA, ISCOD). Web, mobile et game development en TypeScript, Flutter, Python et Luau.",
   keywords: [
     "Dylan Clochard",
     "développeur full-stack",
     "alternance développeur",
+    "alternance Marseille",
+    "ISCOD",
     "game developer",
     "Roblox",
     "Next.js",
@@ -47,15 +49,15 @@ export const metadata: Metadata = {
     alternateLocale: ["en_US"],
     url: SITE_URL,
     siteName: "Dylan Clochard",
-    title: "Dylan Clochard — Développeur Full-Stack & Game Developer",
+    title: "Dylan Clochard — Développeur Web Full-Stack & Game Developer",
     description:
-      "Étudiant en informatique à l'ESGI. Je construis des jeux, des backends Python et des interfaces web soignées.",
+      "Développeur web full-stack en recherche d'alternance à Marseille. Je construis des jeux, des apps mobiles et des interfaces web soignées.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Dylan Clochard — Développeur Full-Stack & Game Developer",
+    title: "Dylan Clochard — Développeur Web Full-Stack & Game Developer",
     description:
-      "Étudiant en informatique à l'ESGI. Je construis des jeux, des backends Python et des interfaces web soignées.",
+      "Développeur web full-stack en recherche d'alternance à Marseille. Je construis des jeux, des apps mobiles et des interfaces web soignées.",
   },
   robots: {
     index: true,
@@ -82,18 +84,31 @@ const personSchema = {
   "@type": "Person",
   name: "Dylan Clochard",
   url: SITE_URL,
-  jobTitle: "Développeur Full-Stack",
+  jobTitle: "Développeur Web Full-Stack",
   email: "mailto:dylanclochard@gmail.com",
   address: {
     "@type": "PostalAddress",
-    addressLocality: "Aix-en-Provence",
+    addressLocality: "Marseille",
     addressCountry: "FR",
   },
-  alumniOf: {
-    "@type": "CollegeOrUniversity",
-    name: "ESGI — École Supérieure de Génie Informatique",
-  },
-  knowsAbout: ["Python", "Lua", "Go", "TypeScript", "React", "Next.js", "Flutter", "Game Development", "AI"],
+  alumniOf: [
+    { "@type": "CollegeOrUniversity", name: "ISCOD" },
+    { "@type": "CollegeOrUniversity", name: "ESGI — École Supérieure de Génie Informatique" },
+  ],
+  knowsAbout: [
+    "TypeScript",
+    "React",
+    "Next.js",
+    "React Native",
+    "Flutter",
+    "Supabase",
+    "Python",
+    "Go",
+    "Luau",
+    "C#",
+    "Game Development",
+    "AI",
+  ],
   sameAs: ["https://github.com/DylanCLD", "https://www.linkedin.com/in/dylan-clochard-75095b335"],
 }
 

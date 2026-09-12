@@ -12,28 +12,33 @@ export const translations = {
       sections: "Sections",
     },
     hero: {
-      command: "> etudiant_dev --init",
+      command: "> alternant_dev --init",
       available: "Disponible pour une alternance",
       title: "Dylan Clochard",
-      subtitle: "Développeur Full-Stack | Passionné par l'IA | Développeur de Jeux",
-      roles: ["Développeur Full-Stack", "Développeur de Jeux", "Intégrateur d'IA", "Backend Python & Go"],
+      subtitle: "Développeur Web Full-Stack | En Recherche d'Alternance | Jeux & IA",
+      roles: [
+        "Développeur Web Full-Stack",
+        "Développeur de Jeux",
+        "Mobile Flutter & React Native",
+        "Backend & Bases de Données",
+      ],
       description:
-        "Étudiant en Informatique à l'ESGI construisant des expériences web immersives, des systèmes intelligents et des mécaniques de jeu engageantes. Spécialisé en Python, Lua, Go et technologies web modernes.",
+        "Développeur full-stack junior en recherche d'alternance (Bachelor Développeur Web & IA, ISCOD), je construis des expériences web immersives, des systèmes intelligents et des mécaniques de jeu engageantes. Spécialisé en Python, Lua, Go et technologies web modernes.",
       exploreCTA: "Explorer Mon Travail",
       contactCTA: "Me Contacter",
       scrollHint: "Défiler",
       metrics: {
         projects: "Projets livrés",
         languages: "Langages maîtrisés",
-        internship: "Mois de stage IA",
+        internship: "Mois de stage",
       },
       terminal: {
         title: "~/dylan — zsh",
         command: "whoami --verbose",
-        role: "Développeur Full-Stack & Game Developer",
-        school: "ESGI · Bachelor Informatique",
-        location: "Aix-en-Provence, France",
-        focus: "Gameplay systems · Backend Python · Agents IA",
+        role: "Développeur Web Full-Stack",
+        school: "ISCOD · Bachelor Développeur Web & IA",
+        location: "Marseille, France",
+        focus: "Web · Mobile · Gameplay Roblox",
         status: "En recherche d'alternance",
       },
     },
@@ -41,27 +46,31 @@ export const translations = {
       index: "01",
       title: "À Propos & Compétences",
       lead: "Je construis des systèmes qui tournent vraiment, pas des démos.",
-      bio: "De l'économie d'un tycoon Roblox à un agent IA en production, ce qui m'intéresse c'est la mécanique interne : la boucle de gameplay, le schéma de données, la latence de l'API. J'apprends en construisant, puis je recommence en mieux.",
+      bio: "D'un jeu Roblox livré en production à un workspace collaboratif en Next.js, ce qui m'intéresse c'est la mécanique interne : l'architecture client-serveur, le schéma de données, la latence de l'API. J'apprends en construisant, puis je recommence en mieux.",
       categories: {
         languages: "Langages",
         web: "Web & Frameworks",
         specializations: "Spécialisations",
+        tools: "Outils & Méthodes",
       },
       stackTitle: "Technologies du quotidien",
       education: "Parcours",
-      bachelor: "Bachelor en Informatique",
-      esgi: "ESGI - 2ème Année (2024-2025)",
-      specialization: "Spécialisation en NSI (Sciences Numériques et Informatique)",
+      iscodDegree: "Bachelor Développeur Web & IA — ISCOD",
+      iscodDetail: "Titre RNCP niveau 6 (Bac+3) · Alternance 24 mois, formation à distance",
+      esgiDegree: "Cursus Informatique — ESGI",
+      esgiDetail: "Octobre 2024 - Décembre 2025 · 1ère année validée, réorientation vers l'alternance",
+      bacDegree: "Baccalauréat, spécialité NSI",
+      bacDetail: "2022 - 2024",
       experience: "Expérience Professionnelle",
-      internship: "Stage en Développement Backend & IA (Sept - Nov 2025)",
+      internship: "Développeur, stage — I-Avantage (Sept - Nov 2025)",
       internshipDesc:
-        "Développement backend spécialisé en Python et intégration d'IA. Création d'agents IA avancés et développement d'un jeu Roblox pour I-Avantage.",
+        "Développement complet d'un jeu Roblox en Luau, du cahier des charges à la mise en ligne, en architecture client-serveur : système d'attribution de parcelles, logique serveur/client, modélisation et gestion de la base de données du jeu.",
       current: "En cours",
     },
     projects: {
       index: "02",
       title: "Projets en Vedette",
-      lead: "Huit projets, quatre domaines : jeux, web, mobile et systèmes bas niveau.",
+      lead: "Neuf projets, quatre domaines : jeux, web, mobile et systèmes bas niveau.",
       viewProject: "Voir le Projet",
       gallery: "Voir la galerie",
       source: "Code source",
@@ -98,18 +107,20 @@ export const translations = {
         "RPG multiverses inspiré de OnePiece avec une progression 0-500, des quêtes, des boss et des mécaniques variées d'exploration.",
       poorToRich:
         "Jeu de tycoon économique avec boucles de revenus actifs/passifs, améliorations commerciales, systèmes d'investissement et quêtes quotidiennes.",
-      mushokuTensei:
-        "Serveur RP isekai immersif avec système de magie progressif, classes, capacités basées sur le niveau et quêtes pilotées par la lore.",
       inventoryManager:
-        "Application Android multi-utilisateurs pour la gestion d'inventaire avec synchronisation Firebase en temps réel et accès basé sur les rôles.",
+        "Outil web de suivi de stock multi-emplacements avec entrées/sorties horodatées, historique des mouvements et suppression protégée par mot de passe.",
+      fertilityTracker:
+        "Application Flutter de suivi de cycle menstruel (méthode symptothermique) : détection de phase par décalage thermique et pic de glaire, courbes de température, verrouillage biométrique et rappels programmables. 100% local, aucune donnée envoyée en ligne.",
+      docsTOG:
+        "Espace de travail façon Notion pour organiser un projet en équipe : pages riches, gestionnaires de documents, planning vocal, médiathèque, recherche globale et rôles/accès contrôlés via Google.",
       pokeStrat:
         "Analyseur de stratégie Pokémon avec calculatrice de dégâts, constructeur d'équipe et moteur de simulation pour joueurs compétitifs.",
       weatherData:
         "Gestionnaire de données de station météorologique en C avec support de fichiers binaires/ASCII, tri et manipulation de structures de données avancées.",
       tensuraRP:
         "Projet roleplay inspiré de *Tensei Shitara Slime Datta Ken*. Les joueurs choisissent leur race (Humain, Monstre) et évoluent dans un monde fantastique avec système d'expérience, de compétences et de magie.",
-      algoSuite:
-        "Série d'exercices d'algorithmique couvrant la recherche dichotomique, tris (bulle, fusion), listes chaînées, piles, files, automates finis et combinaisons/permutations. Objectif : perfectionner la maîtrise de la logique et des structures de données fondamentales.",
+      sportActu:
+        "Application mobile de suivi sportif et nutritionnel gamifiée (thème Solo Leveling) : analyse de repas par photo/texte via l'IA Gemini, système de quêtes, XP, succès et pénalités, planning d'entraînement et bilan de progression.",
     },
     carousel: {
       zoomHint: "Cliquer pour agrandir",
@@ -124,7 +135,7 @@ export const translations = {
       index: "03",
       title: "Contactez-moi",
       description:
-        "Je suis en recherche d'une alternance pour cette année scolaire. Je suis motivé, rigoureux et toujours prêt à relever de nouveaux défis. Discutons ensemble de la façon dont je peux contribuer à votre équipe.",
+        "Je prépare un Bachelor Développeur Web & IA (ISCOD) en alternance 24 mois et je recherche une entreprise sur Marseille, Aix-en-Provence, Plan-de-Campagne, Plan-de-Cuques, Aubagne et alentours. Disponible immédiatement, motivé et toujours prêt à relever de nouveaux défis.",
       email: "Email",
       linkedin: "LinkedIn",
       github: "GitHub",
@@ -136,11 +147,11 @@ export const translations = {
       copied: "Copié dans le presse-papiers",
       copyFailed: "Copie impossible, sélectionne le texte manuellement",
       availability: "Disponibilité",
-      availabilityValue: "Alternance — année scolaire en cours",
+      availabilityValue: "Alternance 24 mois — disponible immédiatement",
       responseTime: "Réponse sous 24 h en semaine",
     },
     footer: {
-      tagline: "Développeur Full-Stack | Passionné par l'IA | Développeur de Jeux",
+      tagline: "Développeur Web Full-Stack | En Recherche d'Alternance | Jeux & IA",
       rights: "Tous les droits réservés.",
       builtWith: "Construit avec React & Next.js",
       hostedOn: "Hébergé sur Vercel",
@@ -169,28 +180,28 @@ export const translations = {
       sections: "Sections",
     },
     hero: {
-      command: "> student_dev --init",
+      command: "> apprentice_dev --init",
       available: "Open to an apprenticeship",
       title: "Dylan Clochard",
-      subtitle: "Full-Stack Developer | AI Enthusiast | Game Developer",
-      roles: ["Full-Stack Developer", "Game Developer", "AI Integrator", "Python & Go Backend"],
+      subtitle: "Full-Stack Web Developer | Seeking Apprenticeship | Games & AI",
+      roles: ["Full-Stack Web Developer", "Game Developer", "Flutter & React Native Mobile", "Backend & Databases"],
       description:
-        "Computer Science student at ESGI building immersive web experiences, intelligent systems, and engaging game mechanics. Specialized in Python, Lua, Go, and modern web technologies.",
+        "Junior full-stack developer seeking an apprenticeship (Web & AI Development Bachelor's, ISCOD), building immersive web experiences, intelligent systems, and engaging game mechanics. Specialized in Python, Lua, Go, and modern web technologies.",
       exploreCTA: "Explore My Work",
       contactCTA: "Get In Touch",
       scrollHint: "Scroll",
       metrics: {
         projects: "Shipped projects",
         languages: "Languages used",
-        internship: "Months of AI internship",
+        internship: "Months of internship",
       },
       terminal: {
         title: "~/dylan — zsh",
         command: "whoami --verbose",
-        role: "Full-Stack & Game Developer",
-        school: "ESGI · BSc Computer Science",
-        location: "Aix-en-Provence, France",
-        focus: "Gameplay systems · Python backend · AI agents",
+        role: "Full-Stack Web Developer",
+        school: "ISCOD · Web & AI Development Bachelor's",
+        location: "Marseille, France",
+        focus: "Web · Mobile · Roblox gameplay",
         status: "Looking for an apprenticeship",
       },
     },
@@ -198,27 +209,31 @@ export const translations = {
       index: "01",
       title: "About & Skills",
       lead: "I build systems that actually run, not demos.",
-      bio: "From the economy of a Roblox tycoon to an AI agent in production, what hooks me is the machinery underneath: the gameplay loop, the data schema, the API latency. I learn by building, then I rebuild it better.",
+      bio: "From a Roblox game shipped to production to a collaborative Next.js workspace, what hooks me is the machinery underneath: the client-server architecture, the data schema, the API latency. I learn by building, then I rebuild it better.",
       categories: {
         languages: "Languages",
         web: "Web & Frameworks",
         specializations: "Specializations",
+        tools: "Tools & Methods",
       },
       stackTitle: "Everyday technologies",
       education: "Background",
-      bachelor: "Bachelor's in Computer Science",
-      esgi: "ESGI - 2nd Year (2024-2025)",
-      specialization: "Specialization in NSI (Numerical and Information Sciences)",
+      iscodDegree: "Web & AI Development Bachelor's — ISCOD",
+      iscodDetail: "RNCP Level 6 (Bac+3) · 24-month apprenticeship, remote program",
+      esgiDegree: "Computer Science Program — ESGI",
+      esgiDetail: "October 2024 - December 2025 · 1st year completed, switched to apprenticeship track",
+      bacDegree: "French Baccalaureate, NSI specialization",
+      bacDetail: "2022 - 2024",
       experience: "Professional Experience",
-      internship: "Backend Development & AI Internship (Sept - Nov 2025)",
+      internship: "Developer, Internship — I-Avantage (Sept - Nov 2025)",
       internshipDesc:
-        "Specialized in Python backend development and advanced AI agent integration. Created a Roblox game for I-Avantage.",
+        "Full development of a Roblox game in Luau, from spec to release, in a client-server architecture: plot-assignment system, server/client logic, game database design and management.",
       current: "Ongoing",
     },
     projects: {
       index: "02",
       title: "Featured Projects",
-      lead: "Eight projects across four domains: games, web, mobile and low-level systems.",
+      lead: "Nine projects across four domains: games, web, mobile and low-level systems.",
       viewProject: "View Project",
       gallery: "View gallery",
       source: "Source code",
@@ -255,18 +270,20 @@ export const translations = {
         "Multi-universe OnePiece-inspired RPG with 0-500 progression, quests, boss fights, and varied exploration mechanics.",
       poorToRich:
         "Economic tycoon game with active/passive revenue loops, business upgrades, investment systems, and daily quests.",
-      mushokuTensei:
-        "Immersive isekai RP server with progressive magic system, classes, level-based abilities, and lore-driven quests.",
       inventoryManager:
-        "Multi-user Android app for business inventory management with real-time Firebase sync and role-based access.",
+        "Web-based stock tracker across multiple locations with timestamped in/out movements, history log, and password-protected deletions.",
+      fertilityTracker:
+        "Flutter menstrual cycle tracker (symptothermal method): phase detection from temperature shift and mucus peak, temperature charts, biometric lock, and scheduled reminders. Fully local, no data sent online.",
+      docsTOG:
+        "Notion-like workspace for organizing a team project: rich pages, document managers, voice session planning, media library, global search, and Google-controlled roles/access.",
       pokeStrat:
         "Pokémon strategy analyzer with damage calculator, team builder, and simulation engine for competitive players.",
       weatherData:
         "C-based weather station data manager supporting binary/ASCII files with sorting and advanced data structure manipulation.",
       tensuraRP:
         "Roleplay project inspired by *Tensei Shitara Slime Datta Ken*. Players choose their race (Human, Monster) and evolve in a fantasy world with experience, skills, and magic systems.",
-      algoSuite:
-        "Series of algorithm exercises covering binary search, sorting (bubble, merge), linked lists, stacks, queues, finite automata, and combinations/permutations. Goal: master fundamental logic and data structure concepts.",
+      sportActu:
+        "Gamified mobile fitness & nutrition tracker (Solo Leveling theme): AI meal analysis from photo/text via Gemini, quest/XP/achievement system with penalties, workout planner, and progress dashboard.",
     },
     carousel: {
       zoomHint: "Click to enlarge",
@@ -281,7 +298,7 @@ export const translations = {
       index: "03",
       title: "Contact me",
       description:
-        "I'm actively seeking an internship opportunity for this academic year. I'm motivated, disciplined, and always ready to tackle new challenges. Let's discuss how I can contribute to your team.",
+        "I'm completing a Web & AI Development Bachelor's (ISCOD) through a 24-month apprenticeship, looking for a company around Marseille, Aix-en-Provence, Plan-de-Campagne, Plan-de-Cuques, Aubagne and nearby. Available immediately, motivated, and always ready for new challenges.",
       email: "Email",
       linkedin: "LinkedIn",
       github: "GitHub",
@@ -293,11 +310,11 @@ export const translations = {
       copied: "Copied to clipboard",
       copyFailed: "Copy failed, please select the text manually",
       availability: "Availability",
-      availabilityValue: "Apprenticeship — current academic year",
+      availabilityValue: "24-month apprenticeship — available now",
       responseTime: "Replies within 24 h on weekdays",
     },
     footer: {
-      tagline: "Full-Stack Developer | AI Enthusiast | Game Developer",
+      tagline: "Full-Stack Web Developer | Seeking Apprenticeship | Games & AI",
       rights: "All rights reserved.",
       builtWith: "Built with React & Next.js",
       hostedOn: "Hosted on Vercel",

@@ -64,8 +64,8 @@ export default function Hero() {
   }, [roles, reducedMotion])
 
   const metrics = [
-    { value: "8", label: t.hero.metrics.projects },
-    { value: "8", label: t.hero.metrics.languages },
+    { value: "9", label: t.hero.metrics.projects },
+    { value: "10", label: t.hero.metrics.languages },
     { value: "3", label: t.hero.metrics.internship },
   ]
 
@@ -177,7 +177,7 @@ export default function Hero() {
 
             <div className="space-y-2.5 p-5 font-mono text-[0.8rem] leading-relaxed">
               <p className="text-muted-foreground">
-                <span className="text-accent-2">dylan@esgi</span>
+                <span className="text-accent-2">dylan@iscod</span>
                 <span className="text-muted-foreground">:~$ </span>
                 <span className="text-foreground">{t.hero.terminal.command}</span>
               </p>
