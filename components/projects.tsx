@@ -20,6 +20,8 @@ interface Project {
   tech: string[]
   /** Absolute URL, or null when the project has no public link. */
   link: string | null
+  youtubeId?: string
+  videos?: { id: string; title: string }[]
   featured?: boolean
   images: string[]
 }
@@ -28,34 +30,34 @@ const BLOB = "/projects"
 
 const projectsData: Project[] = [
   {
-    id: "eternalSeas",
-    title: "Eternal Seas – RPG Roblox",
-    descriptionKey: "eternalSeas",
-    category: "games",
-    tech: ["Lua", "Roblox Studio", "Roact", "Blender"],
-    link: "https://www.roblox.com/",
-    featured: true,
-    images: [
-      `${BLOB}/image-T5wUjR05pLOxzgzBRxv5lKc73bu3IO.png`,
-      `${BLOB}/image-PfhNngzIey6UC7tPjNpecY1uFCbEVp.png`,
-      `${BLOB}/image-5VDTZtc0w3443ZX8WJnEIPHXAEySjE.png`,
-      `${BLOB}/image-IBm8HxXuQiPholI1u80oBWDUb8TfTj.png`,
-      `${BLOB}/image-8b9tHRTwTj01DdqzrnVyVMk5yBhQWI.png`,
+    id: "animeTreasure",
+    youtubeId: "ZYCvFV-1o4s",
+    title: "Jeux Roblox — Anime Factory & Treasure",
+    videos: [
+      { id: "mJSpc6iy0Dg", title: "Anime Factory · Sell Hero" },
+      { id: "ozrQ_jyysBY", title: "Anime Factory · Rebirth + Index" },
+      { id: "-X_qGPO5UXE", title: "Anime Factory · Inventory" },
+      { id: "p9kmtey4EQ8", title: "Anime Factory · Leaderboard" },
+      { id: "74H7PtP4YPU", title: "Anime Factory · Open Box" },
+      { id: "gJpI7E8QgJ0", title: "Anime Factory · Daily Rewards" },
+      { id: "ZYCvFV-1o4s", title: "Anime Treasure Simulator" },
     ],
+    descriptionKey: "animeTreasure",
+    category: "games",
+    tech: ["Roblox Studio", "Luau", "DataStore", "Moon Animator 2"],
+    link: "https://www.youtube.com/watch?v=mJSpc6iy0Dg",
+    featured: true,
+    images: ["/projects/roblox/anime-treasure-hub.webp", "/projects/roblox/anime-treasure-shops.webp", "/projects/roblox/anime-world-1.webp", "/projects/roblox/anime-world-2.webp", "/projects/roblox/anime-world-3.webp", "/projects/roblox/anime-world-4.webp", "/projects/roblox/anime-world-5.webp"],
   },
   {
-    id: "poorToRich",
-    title: "Poor to Rich Tycoon",
-    descriptionKey: "poorToRich",
+    id: "proceduralDungeon",
+    youtubeId: "-PQRMW4v3l8",
+    title: "Procedural Dungeon Engine — Roblox",
+    descriptionKey: "proceduralDungeon",
     category: "games",
-    tech: ["Lua", "Roblox Studio", "ProfileService", "Knit"],
-    link: "https://www.roblox.com/",
-    images: [
-      `${BLOB}/image-x5p1M3YnZv5ja8AY1tgl5H9HP30KC0.png`,
-      `${BLOB}/image-HlFivTl0x6PIiF1pBQrZF0jByRKVKf.png`,
-      `${BLOB}/image-UpgIUSXYcotgtU8mutwNMUFwjSObr9.png`,
-      `${BLOB}/image-elTLPpMtvaYAj0m2fF48FKzYjdztJ2.png`,
-    ],
+    tech: ["Roblox Studio", "Luau", "PCG", "Object Pooling", "Pathfinding"],
+    link: "https://www.youtube.com/watch?v=-PQRMW4v3l8",
+    images: ["/projects/roblox/dungeon-config.webp", "/projects/roblox/dungeon-generation.webp"],
   },
   {
     id: "tensuraRP",
@@ -64,7 +66,7 @@ const projectsData: Project[] = [
     category: "games",
     tech: ["Lua", "GLua", "Garry's Mod", "Hammer++", "Blender", "Photoshop"],
     link: null,
-    images: [`${BLOB}/image-mB0SroAIKhFaQAuLXUzCxCyUVST7U0.png`, `${BLOB}/image-fwUL5B5ocKYgASXAo3XlJUrifNMxwj.png`],
+    images: [`${BLOB}/image-mB0SroAIKhFaQAuLXUzCxCyUVST7U0.webp`, `${BLOB}/image-fwUL5B5ocKYgASXAo3XlJUrifNMxwj.webp`],
   },
   {
     id: "inventoryManager",
@@ -227,7 +229,7 @@ export default function Projects() {
                         type="button"
                         onClick={() => setOpenProject(project.id)}
                         className="relative block w-full cursor-pointer overflow-hidden border-b border-border bg-surface-3 text-left"
-                        aria-label={`${t.projects.gallery} — ${project.title}`}
+                        aria-label={`${t.projects.gallery} — ${project.id === "animeTreasure" && language === "en" ? "Roblox Games — Anime Factory & Treasure" : project.title}`}
                       >
                         <span className={cn("block", wide ? "aspect-[21/9]" : "aspect-[16/10]")}>
                           <img
@@ -244,7 +246,7 @@ export default function Projects() {
                         />
                         <span className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-md border border-border bg-background/80 px-2.5 py-1.5 font-mono text-[0.7rem] text-foreground backdrop-blur">
                           <Maximize className="h-3 w-3" />
-                          {project.images.length} {t.projects.screenshots}
+                          {project.videos ? `${project.videos.length} ${language === "fr" ? "vidéos · " : "videos · "}` : ""}{project.images.length} {t.projects.screenshots}
                         </span>
                         {project.featured ? (
                           <span className="project-featured absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-md border border-accent/40 bg-accent/15 px-2.5 py-1 font-mono text-[0.7rem] text-accent-bright backdrop-blur">
@@ -259,7 +261,7 @@ export default function Projects() {
                       <p className="section-index mb-3">{t.projects.filters[project.category]}</p>
 
                       <h3 className="text-balance text-lg font-semibold leading-snug transition-colors duration-200 group-hover:text-accent-bright">
-                        {project.title}
+                        {project.id === "animeTreasure" && language === "en" ? "Roblox Games — Anime Factory & Treasure" : project.title}
                       </h3>
 
                       <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{description}</p>
@@ -292,7 +294,7 @@ export default function Projects() {
                               className="inline-flex min-h-10 cursor-pointer items-center gap-2 rounded-lg border border-border bg-surface-2 px-3.5 text-sm font-medium transition-colors duration-200 hover:border-accent/60 hover:text-accent-bright"
                             >
                               <Maximize className="h-3.5 w-3.5" />
-                              {t.projects.gallery}
+                              {project.youtubeId ? (language === "fr" ? "Vidéos & captures" : "Videos & screenshots") : t.projects.gallery}
                             </button>
                           ) : null}
 
@@ -310,7 +312,7 @@ export default function Projects() {
                                 </>
                               ) : (
                                 <>
-                                  {t.projects.visit}
+                                  {project.link.startsWith("https://www.youtube.com/") ? (language === "fr" ? "Voir la démo vidéo" : "Watch video demo") : t.projects.visit}
                                   <ArrowUpRight className="h-3.5 w-3.5" />
                                 </>
                               )}
@@ -318,6 +320,9 @@ export default function Projects() {
                           ) : null}
                         </div>
                       ) : null}
+                      {project.youtubeId ? <a href="https://olabsroblox.vercel.app" target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex min-h-11 items-center gap-2 self-start text-xs text-muted-foreground underline decoration-border-strong underline-offset-4 hover:text-accent-bright">
+                        {language === "fr" ? "Portfolio Roblox du studio · OLabs" : "Studio Roblox portfolio · OLabs"}<ArrowUpRight className="h-3 w-3" />
+                      </a> : null}
                     </div>
                   </article>
                 </Reveal>
@@ -330,6 +335,8 @@ export default function Projects() {
       {/* One modal instance, driven by the open project — the old code mounted
           a carousel per card and kept stale slide state between projects. */}
       <ProjectCarousel
+        videos={active?.videos}
+        youtubeId={active?.youtubeId}
         images={active?.images ?? []}
         imageTitles={activeTitles}
         projectName={active?.title ?? ""}

@@ -86,6 +86,10 @@ export const translations = {
       },
       filterLabel: "Filtrer les projets par domaine",
       empty: "Aucun projet dans cette catégorie.",
+      animeTreasure: "Deux jeux Roblox : Anime Factory, avec vente de héros, rebirth, index, inventaire, classement, ouverture de boîtes et récompenses quotidiennes ; et Anime Treasure Simulator. Treasure propose la détection et le déterrage de trésors, l’amélioration de la base et l’exploration de mondes déblocables. Sept démonstrations pour découvrir ces systèmes en action.",
+      proceduralDungeon: "Moteur de donjons Roblox basé sur des seeds reproductibles : structure par graphes, paramètres de difficulté, object pooling et pathfinding dynamique. Un système de génération configurable, présenté avec son code et une démonstration vidéo.",
+      animeTreasureImages: { 0: "Hub, téléporteur et bases des joueurs", 1: "Boutiques de détecteurs, sacs et zone de vente", 2: "Mondes Anime Treasure Simulator — vue 1", 3: "Mondes Anime Treasure Simulator — vue 2", 4: "Mondes Anime Treasure Simulator — vue 3", 5: "Mondes Anime Treasure Simulator — vue 4", 6: "Mondes Anime Treasure Simulator — vue 5" },
+      proceduralDungeonImages: { 0: "Configuration du moteur : modes, probabilités et îles", 1: "Paramètres de génération et niveaux de difficulté" },
       eternalSeasImages: {
         0: "Boutique des titres",
         1: "PNJ - Dialogue et quêtes",
@@ -248,6 +252,10 @@ export const translations = {
       },
       filterLabel: "Filter projects by domain",
       empty: "No project in this category.",
+      animeTreasure: "Two Roblox games: Anime Factory, featuring hero selling, rebirth, index, inventory, leaderboard, box opening and daily rewards; and Anime Treasure Simulator, featuring treasure detection and digging, progressive base upgrades and unlockable worlds. Progression and procedural reward systems in an anime universe, featured in the OLabs portfolio.",
+      proceduralDungeon: "Roblox dungeon engine using reproducible seeds: graph-based structure, difficulty settings, object pooling and dynamic pathfinding. A configurable generation system presented through its code and a video demonstration.",
+      animeTreasureImages: { 0: "Hub, teleporter and player bases", 1: "Detector and backpack shops, and selling area", 2: "Anime Treasure Simulator worlds — view 1", 3: "Anime Treasure Simulator worlds — view 2", 4: "Anime Treasure Simulator worlds — view 3", 5: "Anime Treasure Simulator worlds — view 4", 6: "Anime Treasure Simulator worlds — view 5" },
+      proceduralDungeonImages: { 0: "Engine configuration: modes, probabilities and islands", 1: "Generation settings and difficulty levels" },
       eternalSeasImages: {
         0: "Title Shop",
         1: "NPC Dialogues & Quests",

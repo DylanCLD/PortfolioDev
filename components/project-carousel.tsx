@@ -8,6 +8,8 @@ import { translations } from "@/lib/translations"
 import { cn } from "@/lib/utils"
 
 interface ProjectCarouselProps {
+  youtubeId?: string
+  videos?: { id: string; title: string }[]
   images: string[]
   imageTitles?: string[]
   projectName: string
@@ -15,10 +17,18 @@ interface ProjectCarouselProps {
   onClose: () => void
 }
 
-export function ProjectCarousel({ images, imageTitles = [], projectName, isOpen, onClose }: ProjectCarouselProps) {
+export function ProjectCarousel({ images, imageTitles = [], projectName, isOpen, onClose, youtubeId, videos }: ProjectCarouselProps) {
+  const [videoIndex, setVideoIndex] = useState(0)
+  const videoItems = videos ?? (youtubeId ? [{ id: youtubeId, title: projectName }] : [])
+  const selectedVideo = videoItems[videoIndex] ?? videoItems[0]
+  const selectedVideoId = selectedVideo?.id
   const [index, setIndex] = useState(0)
   const [zoomed, setZoomed] = useState(false)
-  const dialogRef = useRef<HTMLDivElement>(null)
+  const [videoOpen, setVideoOpen] = useState(false)
+  const [videoLoaded, setVideoLoaded] = useState(false)
+  const [playerOrigin, setPlayerOrigin] = useState("")
+  useEffect(() => { setPlayerOrigin(window.location.origin) }, [])
+  const dialogRef = useRef<HTMLDialogElement>(null)
   const { language } = useLanguage()
   const t = translations[language].carousel
 
@@ -37,10 +47,13 @@ export function ProjectCarousel({ images, imageTitles = [], projectName, isOpen,
   // never shows a stale (or out-of-range) slide from the previous gallery.
   useEffect(() => {
     if (isOpen) {
+      setVideoIndex(0)
       setIndex(0)
       setZoomed(false)
+      setVideoOpen(Boolean(youtubeId))
+      setVideoLoaded(false)
     }
-  }, [isOpen, projectName])
+  }, [isOpen, projectName, youtubeId])
 
   // Keyboard: Escape closes, arrows navigate.
   useEffect(() => {
@@ -51,16 +64,16 @@ export function ProjectCarousel({ images, imageTitles = [], projectName, isOpen,
         event.preventDefault()
         if (zoomed) setZoomed(false)
         else onClose()
-      } else if (event.key === "ArrowRight") {
+      } else if (!videoOpen && event.key === "ArrowRight") {
         go(1)
-      } else if (event.key === "ArrowLeft") {
+      } else if (!videoOpen && event.key === "ArrowLeft") {
         go(-1)
       }
     }
 
     document.addEventListener("keydown", onKeyDown)
     return () => document.removeEventListener("keydown", onKeyDown)
-  }, [isOpen, zoomed, go, onClose])
+  }, [isOpen, zoomed, videoOpen, go, onClose])
 
   // Lock background scrolling while the dialog is open, without the layout
   // shift that removing the scrollbar would cause.
@@ -78,14 +91,18 @@ export function ProjectCarousel({ images, imageTitles = [], projectName, isOpen,
 
   // Move focus into the dialog so the keyboard handlers and Tab order apply.
   useEffect(() => {
-    if (isOpen) dialogRef.current?.focus()
+    if (!isOpen) return
+    const previous = document.activeElement as HTMLElement | null
+    const dialog = dialogRef.current
+    dialog?.showModal()
+    return () => { dialog?.close(); previous?.focus() }
   }, [isOpen])
 
   if (!isOpen || count === 0) return null
 
-  const title = imageTitles[index] || `${t.screenshot} ${index + 1}`
+  const title = videoOpen ? selectedVideo?.title ?? projectName : imageTitles[index] || `${t.screenshot} ${index + 1}`
   // Preload the neighbours so arrow navigation does not flash.
-  const neighbours = count > 1 ? [images[(index + 1) % count], images[(index - 1 + count) % count]] : []
+  const neighbours = count > 1 ? Array.from(new Set([images[(index + 1) % count], images[(index - 1 + count) % count]])) : []
 
   const content = (
     <div
@@ -94,13 +111,13 @@ export function ProjectCarousel({ images, imageTitles = [], projectName, isOpen,
         if (event.target === event.currentTarget) onClose()
       }}
     >
-      <div
+      <dialog
         ref={dialogRef}
-        role="dialog"
+        onCancel={(event) => { event.preventDefault(); if (zoomed) setZoomed(false); else onClose() }}
         aria-modal="true"
         aria-label={`${projectName} — ${title}`}
         tabIndex={-1}
-        className="edge-light surface-card flex max-h-[92vh] w-full max-w-6xl flex-col overflow-hidden bg-surface-1 shadow-[var(--shadow-lg)] outline-none"
+        className="edge-light surface-card fixed inset-0 m-auto flex h-fit max-h-[92vh] w-[calc(100%-2rem)] max-w-6xl flex-col overflow-hidden bg-surface-1 shadow-[var(--shadow-lg)] outline-none"
       >
         <div className="flex items-center justify-between gap-4 border-b border-border px-5 py-3.5">
           <div className="min-w-0">
@@ -109,7 +126,7 @@ export function ProjectCarousel({ images, imageTitles = [], projectName, isOpen,
           </div>
           <div className="flex shrink-0 items-center gap-3">
             <span className="tabular hidden font-mono text-xs text-muted-foreground sm:inline">
-              {index + 1} / {count}
+              {videoOpen ? `${videoIndex + 1} / ${videoItems.length}` : `${index + 1} / ${count}`}
             </span>
             <button
               type="button"
@@ -122,12 +139,42 @@ export function ProjectCarousel({ images, imageTitles = [], projectName, isOpen,
           </div>
         </div>
 
+        {youtubeId ? <div className="flex gap-3 border-b border-border px-5 py-3">
+          <button type="button" aria-pressed={videoOpen} onClick={() => { setVideoOpen(true); setZoomed(false) }} className="min-h-11 rounded border border-border bg-surface-2 px-4 text-sm">{language === "fr" ? "Vidéos" : "Videos"} ({videoItems.length})</button>
+          <button type="button" aria-pressed={!videoOpen} onClick={() => { setVideoOpen(false); setVideoLoaded(false) }} className="min-h-11 rounded border border-border bg-surface-2 px-4 text-sm">{language === "fr" ? "Captures" : "Screenshots"}{videos ? " · Treasure" : ""} ({count})</button>
+        </div> : null}
+        {videoOpen && selectedVideoId ? <div className="min-h-0 overflow-auto bg-background">
+          {videoItems.length > 1 ? <div role="group" aria-label={language === "fr" ? "Choisir une démonstration" : "Choose a demo"} className="grid gap-2 border-b border-border p-4 sm:grid-cols-2 lg:grid-cols-3">
+            {videoItems.map((video, position) => <button key={video.id} type="button" aria-pressed={position === videoIndex} onClick={() => setVideoIndex(position)} className="min-h-11 rounded border border-border bg-surface-2 px-3 py-2 text-left text-xs transition-colors hover:text-accent-bright">
+              <span className="mr-2 font-mono text-accent-bright">{String(position + 1).padStart(2, "0")}</span>{video.title}
+            </button>)}
+          </div> : null}
+          {videoLoaded ? <div>
+            <iframe key={selectedVideoId} className="aspect-video max-h-[58vh] w-full" src={`https://www.youtube-nocookie.com/embed/${selectedVideoId}?autoplay=1&rel=0&playsinline=1&origin=${encodeURIComponent(playerOrigin)}`} title={selectedVideo?.title} allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowFullScreen referrerPolicy="strict-origin-when-cross-origin" />
+            <a href={`https://www.youtube.com/watch?v=${selectedVideoId}`} target="_blank" rel="noopener noreferrer" className="m-3 inline-flex min-h-11 items-center px-3 text-sm underline">{language === "fr" ? "Ouvrir sur YouTube si le lecteur ne fonctionne pas" : "Open on YouTube if the player does not load"}</a>
+            <button type="button" className="m-3 min-h-11 px-3 text-sm underline" onClick={() => setVideoLoaded(false)}>{language === "fr" ? "Arrêter et désactiver YouTube" : "Stop and disable YouTube"}</button>
+          </div> : <div className="relative flex min-h-72 flex-col items-center justify-center gap-5 px-6 py-10 text-center sm:min-h-96">
+            {!videos || selectedVideoId === "ZYCvFV-1o4s" ? <img src={images[0]} alt="" className="absolute inset-0 h-full w-full object-cover opacity-15" /> : null}
+            <div className="relative max-w-lg space-y-5">
+              <p className="text-lg font-medium">{selectedVideo?.title}</p>
+              <p className="text-sm leading-relaxed text-muted-foreground">{language === "fr" ? "En activant ce lecteur, vous acceptez la connexion à YouTube (Google), qui recevra notamment votre adresse IP et pourra utiliser des traceurs. Aucun lecteur externe n’est chargé avant votre choix." : "Activating this player connects to YouTube (Google), which receives your IP address and may use trackers. No external player loads before your choice."}</p>
+              <button type="button" onClick={() => setVideoLoaded(true)} className="min-h-12 rounded bg-accent px-6 font-semibold text-accent-foreground">{language === "fr" ? "Autoriser YouTube et lire la vidéo" : "Allow YouTube and play video"}</button>
+              <p className="text-xs"><a href="/confidentialite" target="_blank" rel="noopener noreferrer" className="underline">{language === "fr" ? "Confidentialité" : "Privacy"}</a></p>
+            </div>
+          </div>}
+        </div> : <>
         <div className="relative flex min-h-0 flex-1 items-center justify-center overflow-auto bg-background">
           <img
             key={images[index]}
             src={images[index]}
             alt={title}
             decoding="async"
+            role="button"
+            tabIndex={0}
+            aria-label={`${zoomed ? (language === "fr" ? "Réduire" : "Zoom out") : (language === "fr" ? "Agrandir" : "Zoom in")} — ${title}`}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" || event.key === " ") { event.preventDefault(); setZoomed(value => !value) }
+            }}
             onClick={() => setZoomed((value) => !value)}
             className={cn(
               "select-none transition-transform duration-300",
@@ -198,7 +245,8 @@ export function ProjectCarousel({ images, imageTitles = [], projectName, isOpen,
             <p className="hidden shrink-0 font-mono text-[0.7rem] text-muted-foreground lg:block">{t.keyboardHint}</p>
           </div>
         ) : null}
-      </div>
+        </>}
+      </dialog>
 
       {/* Warm the adjacent slides */}
       <div aria-hidden="true" className="hidden">

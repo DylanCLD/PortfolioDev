@@ -32,3 +32,6 @@ Périmètre : portfolio personnel sans vente, compte ou formulaire. Dylan confir
 - Vercel, sous-traitance : https://vercel.com/legal/dpa
 
 Les coordonnées de l'hébergeur sont une information légale, pas une signature promotionnelle. Les détails techniques du fournisseur dans les paquets Next.js ou les en-têtes réseau ne peuvent pas être éliminés honnêtement tout en conservant cet hébergement.
+
+## Mise à jour vidéos Roblox
+Lecteurs YouTube intégrés sur youtube-nocookie.com uniquement après autorisation explicite dans la galerie. Aucun iframe ou thumbnail distant avant ce choix. Autorisation en mémoire, réinitialisée à la fermeture/changement de projet ; bouton de désactivation et alternative captures locales. La politique publique décrit Google et le retrait. La nouvelle galerie Anime Treasure Simulator comprend 7 captures locales (game1 + Map1), le moteur de donjons 2.
